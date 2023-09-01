@@ -16,6 +16,7 @@ https://reactnavigation.org/docs/headers/
 
 npm installed until now(additional)
 
->npm install @react-navigation/native
->npx expo install react-native-screens react-native-safe-area-context
->npm install @react-navigation/native-stack
+1. npm install @react-navigation/native
+2. npx expo install react-native-screens react-native-safe-area-context
+3. npm install @react-navigation/native-stack
+
