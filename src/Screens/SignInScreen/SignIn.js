@@ -12,6 +12,14 @@ const SignIn = () => {
         console.warn('Sign in');
     };
 
+    const onForgotPasswordPressed = () => {
+        console.warn('Forgot Password');
+    };
+
+    const onSignUpPressed = () => {
+        console.warn('Sign Up');
+    };
+
     const height = useWindowDimensions().height;
 
     return (
@@ -21,7 +29,11 @@ const SignIn = () => {
         <CustomInput placeholder="E-mail" value={email} setValue={setEmail} secureTextEntry={false}/>
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
         
+        <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type='TERTIARY'/>
         <CustomButton text="Sign In" onPress={onSignInPressed}/>
+        
+        <CustomButton text="Don't have an account? Register Now" onPress={onSignUpPressed} type='TERTIARY' type2='signuplink'/>
+
         </View>
     );
 };
