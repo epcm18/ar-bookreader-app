@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
-import Logo from '../../../assets/Logo/png/logo-white.png';
+//import Logo from '../../../assets/Logo/png/logo-white.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
@@ -20,12 +20,13 @@ const SignIn = () => {
         console.warn('Sign Up');
     };
 
-    const height = useWindowDimensions().height;
+    // const height = useWindowDimensions().height;
 
     return (
         <View style={styles.root}>
-        <Image source={Logo} style={[styles.logo, {height: height*1}]} resizeMode='contain' />
-        
+        {/* <Image source={Logo} style={[styles.logo, {height: height*1}]} resizeMode='contain' /> */}
+        <Text style={styles.header}>Welcome Back</Text>
+        <Text style={styles.subheader}>Sign In to cotinue your journey</Text>
         <CustomInput placeholder="E-mail" value={email} setValue={setEmail} secureTextEntry={false}/>
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true}/>
         
@@ -40,14 +41,30 @@ const SignIn = () => {
 
 const styles = StyleSheet.create({
     root: {
+        flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
         backgroundColor: '#0A96E6',
     },
-    logo: {
-        width: 100,
-        maxWidth: 300,
-        maxHeight: 300,
+    // logo: {
+    //     width: 100,
+    //     maxWidth: 300,
+    //     maxHeight: 300,
+    // },
+    header: {
+        fontSize: 30,
+        fontFamily: 'Roboto',
+        fontWeight: 'bold',
+        color: '#fff',
+        marginBottom: 10,
+    },
+    subheader: {
+        fontSize: 15,
+        fontFamily: 'Roboto',
+        fontWeight: 'regular',
+        color: '#fff',
+        marginBottom: 80,
     },
 });
 export default SignIn;
