@@ -25,7 +25,7 @@ const SignUp = () => {
           return; // Don't proceed with sign-up
         }
         console.warn('Sign Up');
-      };
+    };
 
     const checkFormValidity = () => {
         if (firstName && lastName && userName && email && password && checked) {
@@ -62,7 +62,7 @@ const SignUp = () => {
         
         <CustomButton text="Sign Up" onPress={onSignUpPressed}/>
         
-        <CustomButton text="Already have an account? Click Here" onPress={onSignInPressed} type='TERTIARY' type2='signuplink'/>
+        <CustomButton text="Already have an account? Click Here" onPress={onSignInPressed} type='TERTIARY'/>
 
         </ScrollView>
     );
