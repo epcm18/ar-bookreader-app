@@ -3,27 +3,34 @@ import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 //import Logo from '../../../assets/Logo/png/logo-white.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const NewPasswordScreen = () => {
-    const [email, setEmail] = useState('');
-    const [isFormValid, setIsFormValid] = useState(false);
+    const navigation = useNavigation();
 
+    const [code, setCode] = useState('');
+    const [isFormValid, setIsFormValid] = useState(false);
+    const [newPassword, setNewPassword] = useState('');
 
     const onSignInPressed = () => {
         console.warn('Sign In');
+
+        navigation.navigate('SignIn');
     };
 
-    const onSendPressed = () => {
+    const onResetPressed = () => {
         if (!isFormValid) {
           // Check if the form is not valid
-          console.warn('Please enter your email.');
+          console.warn('Please enter your details.');
           return; // Don't proceed with sign-up
         }
-        console.warn('send');
+        console.warn('Password Reset');
+
+        navigation.navigate('SignIn');
     };
 
     const checkFormValidity = () => {
-        if (email) {
+        if (code && newPassword) {
             setIsFormValid(true);
         } else {
             setIsFormValid(false);
@@ -32,19 +39,19 @@ const NewPasswordScreen = () => {
     // Call checkFormValidity whenever any input field or checkbox changes
     React.useEffect(() => {
         checkFormValidity();
-    }, [email]);
+    }, [code, newPassword]);
 
 
     return (
         <View style={styles.root}>
         {/* <Image source={Logo} style={[styles.logo, {height: height*1}]} resizeMode='contain' /> */}
         <Text style={styles.header}>Reset Password</Text>
-        <Text style={styles.subheader}>We will sent a confirmation to your e-mail.</Text>
+        <Text style={styles.subheader}>We have sent a code to your e-mail. Enter that here.</Text>
         
-        <CustomInput placeholder="Enter your email here" value={email} setValue={setEmail}/>
+        <CustomInput placeholder="Enter your code here" value={code} setValue={setCode}/>
         
-        
-        <CustomButton text="Send" onPress={onSendPressed}/>
+        <CustomInput placeholder="Enter your new password" value={newPassword} setValue={setNewPassword}/>
+        <CustomButton text="Reset" onPress={onResetPressed}/>
         
         <CustomButton text="Back to Sign In" onPress={onSignInPressed} type="TERTIARY"/>
         

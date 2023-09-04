@@ -4,8 +4,11 @@ import {View, Text, Image, StyleSheet, useWindowDimensions, ScrollView, ScrollVi
 //import Logo from '../../../assets/Logo/png/logo-white.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUp = () => {
+    const navigation = useNavigation();
+
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [userName, setUserName] = useState('');
@@ -16,6 +19,8 @@ const SignUp = () => {
 
     const onSignInPressed = () => {
         console.warn('Sign in');
+
+        navigation.navigate('SignIn');
     };
 
     const onSignUpPressed = () => {
@@ -25,6 +30,7 @@ const SignUp = () => {
           return; // Don't proceed with sign-up
         }
         console.warn('Sign Up');
+        navigation.navigate('SignUpConfirm');
     };
 
     const checkFormValidity = () => {

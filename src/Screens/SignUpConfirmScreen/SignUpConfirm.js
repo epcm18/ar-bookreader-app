@@ -3,17 +3,24 @@ import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 //import Logo from '../../../assets/Logo/png/logo-white.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const SignUpConfirm = () => {
+    const navigation = useNavigation(); 
+
     const [code, setCode] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
 
     const onResendPressed = () => {
         console.warn('Resend');
+
+        navigation.navigate('SignUpConfirm');
     };
 
     const onSignInPressed = () => {
         console.warn('Sign In');
+
+        navigation.navigate('SignIn');
     };
 
     const onConfirmPressed = () => {
@@ -23,6 +30,8 @@ const SignUpConfirm = () => {
           return; // Don't proceed with sign-up
         }
         console.warn('Confirm');
+
+        navigation.navigate('SignIn');
     };
 
     const checkFormValidity = () => {
