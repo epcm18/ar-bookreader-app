@@ -3,14 +3,19 @@ import {View, Text, Image, StyleSheet, useWindowDimensions} from 'react-native';
 //import Logo from '../../../assets/Logo/png/logo-white.png';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import { useNavigation } from '@react-navigation/native';
 
 const ForgotPasswordScreen = () => {
+    const navigation = useNavigation();
+
     const [email, setEmail] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
 
 
     const onSignInPressed = () => {
         console.warn('Sign In');
+
+        navigation.navigate('SignIn');
     };
 
     const onSendPressed = () => {
@@ -20,6 +25,8 @@ const ForgotPasswordScreen = () => {
           return; // Don't proceed with sign-up
         }
         console.warn('send');
+
+        navigation.navigate('NewPasswordScreen');
     };
 
     const checkFormValidity = () => {
