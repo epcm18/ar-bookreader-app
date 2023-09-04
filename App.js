@@ -7,6 +7,7 @@ import { SafeAreaView, StyleSheet, Text } from 'react-native';
 // import SignUpConfirm from './src/Screens/SignUpConfirmScreen/SignUpConfirm';
 // import ForgotPasswordScreen from './src/Screens/ForgotPasswordScreen';  
 // import NewPasswordScreen from './src/Screens/NewPasswordScreen copy/NewPasswordScreen';
+// import LandingScreen from './src/Screens/LandingScreen/LandingScreen';
 import Navigation from './src/navigation';
 const App = () => {
   return (

@@ -44,7 +44,7 @@ const SignIn = () => {
         <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type='TERTIARY'/>
         <CustomButton text="Sign In" onPress={onSignInPressed}/>
         
-        <CustomButton text="Don't have an account? Register Now" onPress={onSignUpPressed} type='TERTIARY' type2='signuplink'/>
+        <CustomButton text="Don't have an account? Register Now" onPress={onSignUpPressed} type='TERTIARY'/>
 
         </View>
     );

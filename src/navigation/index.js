@@ -9,12 +9,14 @@ import SignUpConfirm from '../Screens/SignUpConfirmScreen/SignUpConfirm';
 import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen/ForgotPasswordScreen';  
 import NewPasswordScreen from '../Screens/NewPasswordScreen/NewPasswordScreen';
 import HomeScreen from '../Screens/HomeScreen';
+import LandingScreen from '../Screens/LandingScreen/LandingScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
     return (
         <NavigationContainer>
         <Stack.Navigator>
+            <Stack.Screen name="LandingScreen" component={LandingScreen} />
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="SignUpConfirm" component={SignUpConfirm} />
