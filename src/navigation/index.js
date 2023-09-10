@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Platform} from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import SignIn from '../Screens/SignInScreen/SignIn';
 import SignUp from '../Screens/SignUpScreen/SignUp';
@@ -13,9 +14,13 @@ import ForgotPasswordScreen from '../Screens/ForgotPasswordScreen/ForgotPassword
 import NewPasswordScreen from '../Screens/NewPasswordScreen/NewPasswordScreen';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import LandingScreen from '../Screens/LandingScreen/LandingScreen';
+import EditProfileScreen from "../Screens/EditProfileScreen/EditProfileScreen";
+
 
 import SearchScreen from '../Screens/SearchScreen/SearchScreen';
 import HelpScreen from '../Screens/HelpScreen/HelpScreen';
+import PublishScreen from '../Screens/PublishScreen/PublishScreen';
+import UserProfileScreen from "../Screens/UserProfileScreen/UserProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -45,11 +50,50 @@ const Home = () => {
                 ) }}
             />
             <Tab.Screen
+                name="Profile"
+                component={UserProfileScreen}
+                options={{
+                    tabBarIcon: ({focused}) => {
+                        return(
+                            <View
+                                style={{
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    backgroundColor: '#FF34DF',
+                                    height: Platform.OS === 'android' ? 60 : 60,
+                                    width: Platform.OS === 'android' ? 60 : 60,
+                                    top: Platform.OS === 'android' ? -10 : -20,
+                                    borderRadius: Platform.OS === 'android' ? 25 : 30,
+                                    borderWidth: 2,
+                                    borderColor: '#fff',
+                                }}
+                            >
+                                <Fontisto
+                                    name="male"
+                                    size={25}
+                                    color='#fff'
+                                />
+                            </View>
+                        )
+                    }
+                }
+            }
+            />
+
+            <Tab.Screen
                 name="Help"
                 component={HelpScreen}
                 options={{ title: 'Help',
                 tabBarIcon: ({ size, color }) => (
                     <MaterialCommunityIcons name="help-circle" color={color} size={size} />
+                ) }}
+            />
+            <Tab.Screen
+                name="Publish"
+                component={PublishScreen}
+                options={{ title: 'Publish',
+                tabBarIcon: ({ size, color }) => (
+                    <MaterialCommunityIcons name="plus-circle" color={color} size={size} />
                 ) }}
             />
         </Tab.Navigator>
@@ -67,6 +111,7 @@ const Navigation = () => {
             <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
             <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} />
             <Stack.Screen name="HomeScreen" component={Home} />
+            <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
         </Stack.Navigator>
         
         </NavigationContainer>

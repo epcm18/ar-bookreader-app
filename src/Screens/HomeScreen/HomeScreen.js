@@ -1,30 +1,26 @@
 import React from "react";
-import { View, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-//import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, image, StyleSheet, Dimensions } from "react-native";
 
-import SearchScreen from '../SearchScreen/SearchScreen';
-import HelpScreen from '../HelpScreen/HelpScreen';
 
+import HeroImage from "../../components/HeroImage";
 
 const HomeScreen = () => {
     //const Tab = createBottomTabNavigator();
 
 
     return (
-        <View>
-            <Text>HomeScreen</Text>
-        </View>
-        
-
-                
+        <View style={Styles.container}>
+            <HeroImage/>
+            {/* <Text>HomeScreen</Text> */}
+        </View> 
     );
 };
 
-
+const Styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
     
 
 export default HomeScreen;
