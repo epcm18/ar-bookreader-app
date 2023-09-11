@@ -1,7 +1,8 @@
 import React from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView, ScrollViewComponent } from "react-native";
+import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from "react-native";
 import CustomButton from "../../components/CustomButton/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const UserProfileScreen = () => {
     const navigation = useNavigation();
@@ -10,20 +11,34 @@ const UserProfileScreen = () => {
         console.warn('Customize');
         navigation.navigate('EditProfileScreen');
     };
+    const OnSignOutPressed = () => {
+        console.warn('Sign Out');
+        navigation.navigate('LandingScreen');
+    };
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.blueRectangle}>
                 <View style={styles.profileContainer}>
                     {/* User Profile Picture (Assuming a circular image) */}
-                    <View style={styles.profileImage} />
-                        <View style={styles.levelCircle}>
-                            <Text style={styles.levelText}>1</Text>
-                        </View>
+                    <View style={styles.profileImageWrapper}>
+                        <Image
+                            source={require("../../../assets/profile.jpeg")} // Add your image source here
+                            style={styles.profileImage}
+                        />
+                        <TouchableOpacity onPress={OnCustomizePressed} style={styles.editIconWrapper}>
+                            
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.levelCircle}>
+                        <Text style={styles.levelText}>1</Text>
+                    </View>
                     
-                    <Text style={styles.username}>Klazer123</Text>
+                    
                 </View>
+                <Text style={styles.username}>Klazer123</Text>
                 <CustomButton text="Customize" onPress={OnCustomizePressed} type='PRIMARY' bgColor="#fff" fgColor='#FF34DF'/>
+                <CustomButton text="Sign Out" onPress={OnSignOutPressed} type='PRIMARY' bgColor="#fff" fgColor='#FF34DF'/>
             </View>
             <Text style={styles.header}>My Profile</Text>
             <Text style={styles.subheader}>Level 1 - Novice</Text>
@@ -57,7 +72,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
     },
     blueRectangle: {
-        flex: 1,
         backgroundColor: "#0A96E6", // Blue color
         justifyContent: "center",
         alignItems: "center",
@@ -71,24 +85,29 @@ const styles = StyleSheet.create({
     profileContainer: {
         alignItems: "center",
     },
+    profileImageWrapper: {
+        position: "relative",
+        width: 120, 
+        height: 120, 
+        borderRadius: 60, 
+        overflow: "hidden",
+        marginBottom: 15,
+    },
     profileImage: {
-        width: windowWidth * 0.4, 
-        height: windowWidth * 0.4, 
-        borderRadius: (windowWidth * 0.4) / 2, 
-        backgroundColor: "lightgray", 
-        marginBottom: 10,
+        width: "100%",
+        height: "100%",
     },
     levelCircle: {
         position: "absolute",
-        bottom: 20, // Adjust to control the intersection
-        left: windowWidth * 0.15, // Adjust to control the intersection
+        bottom: -10, // Adjust to control the intersection
+        left: windowWidth * 0.10, // Adjust to control the intersection
         width: 40, // Adjust the circle size
         height: 40, // Make it a circle
         borderRadius: 20, // Half of width/height to make it a circle
         backgroundColor: "#FF34DF", // Circle color
         justifyContent: "center",
         alignItems: "center",
-        marginBottom: 5,
+        marginBottom: 10,
     },
     levelText: {
         color: "white",
@@ -133,6 +152,14 @@ const styles = StyleSheet.create({
     dashboardLabel: {
         fontSize: 16,
         color: "#555", // Adjust label color
+    },
+    editIconWrapper: {
+        position: "absolute",
+        bottom: 0,
+        right: 0,
+        backgroundColor: "#808080",
+        borderRadius: 20, // Adjust as needed for your icon
+        padding: 5,
     },
 });
 
