@@ -20,3 +20,9 @@ npm installed until now(additional)
 2. npx expo install react-native-screens react-native-safe-area-context
 3. npm install @react-navigation/native-stack
 
+To run the project
+
+>> expo start
+After metro built 
+  - press a to go with virtual device
+  - Or scan QR with mobile to Expo Go app
