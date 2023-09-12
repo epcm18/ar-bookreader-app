@@ -23,6 +23,7 @@ npm installed until now(additional)
 To run the project
 
 >> expo start
+>> 
 After metro built 
   - press a to go with virtual device
   - Or scan QR with mobile to Expo Go app
