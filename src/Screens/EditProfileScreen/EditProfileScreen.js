@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "column",
     marginBottom: 6,
+    marginHorizontal: 5,
   },
   label: {
     margin: 4,
