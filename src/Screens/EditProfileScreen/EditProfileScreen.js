@@ -83,7 +83,7 @@ const EditProfileScreen = () => {
   // Function to save changes
   const saveChanges = () => {
     console.warn("Saved Changes");
-    navigation.navigate('UserProfileScreen');
+    navigation.navigate('HomeScreen');
   };
 
   return (
