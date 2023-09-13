@@ -21,6 +21,10 @@ import SearchScreen from '../Screens/SearchScreen/SearchScreen';
 import HelpScreen from '../Screens/HelpScreen/HelpScreen';
 import PublishScreen from '../Screens/PublishScreen/PublishScreen';
 import UserProfileScreen from "../Screens/UserProfileScreen/UserProfileScreen";
+import BookDetailsScreen from "../Screens/BookDetailsScreen/BookDetailsScreen";
+import Books from "../components/Books/Books";
+import NotificationsScreen from "../Screens/NotificationsScreen/NotificationsScreen";
+import LibraryScreen from "../Screens/LibraryScreen/LibraryScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -81,19 +85,19 @@ const Home = () => {
             />
 
             <Tab.Screen
-                name="Help"
-                component={HelpScreen}
-                options={{ title: 'Help',
+                name="Notifications"
+                component={NotificationsScreen}
+                options={{ title: 'Notifications',
                 tabBarIcon: ({ size, color }) => (
-                    <MaterialCommunityIcons name="help-circle" color={color} size={size} />
+                    <MaterialCommunityIcons name="bell" color={color} size={size} />
                 ) }}
             />
             <Tab.Screen
-                name="Publish"
-                component={PublishScreen}
-                options={{ title: 'Publish',
+                name="Library"
+                component={LibraryScreen}
+                options={{ title: 'Library',
                 tabBarIcon: ({ size, color }) => (
-                    <MaterialCommunityIcons name="plus-circle" color={color} size={size} />
+                    <MaterialCommunityIcons name="book" color={color} size={size} />
                 ) }}
             />
         </Tab.Navigator>
@@ -113,6 +117,10 @@ const Navigation = () => {
             <Stack.Screen name="HomeScreen" component={Home} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+            <Stack.Screen name="SearchScreen" component={Books} />
+            <Stack.Screen name="BookDetailsScreen" component={BookDetailsScreen} />
+            <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
+            <Stack.Screen name="LibraryScreen" component={LibraryScreen} />
         </Stack.Navigator>
         
         </NavigationContainer>
