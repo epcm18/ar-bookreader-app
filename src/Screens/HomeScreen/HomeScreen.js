@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import HeroImage from "../../components/HeroImage";
-import PdfRead from "../../components/PdfRead";
-
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [books, setBooks] = useState([]);
+
+  // Function to fetch books from the server
+  const fetchBooks = async () => {
+    try {
+      const response = await fetch(
+        "http://192.168.1.144:4000/api/book/getBooks"
+      );
+      const data = await response.json();
+      setBooks(data);
+    } catch (error) {
+      console.error("Error fetching books:", error);
+    }
+  };
+
+  // Fetch books when the component mounts
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   // Function to navigate to the PDF screen with a specific PDF URL
   const openPdf = (pdfUrl) => {
@@ -16,29 +32,16 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            openPdf(
-              "https://firebasestorage.googleapis.com/v0/b/arbookreader-50534.appspot.com/o/(Saddleback%20Classics)%20Charles%20Dickens%2C%20Emily%20Hutchinson%20-%20Oliver%20Twist-Saddleback%20Publishing%20(1996).pdf?alt=media&token=4cef19db-d7ba-4222-a4c8-ff992e8f20ce"
-            )
-          }
-        >
-          <Text style={styles.buttonText}>Oliver Twist</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            openPdf(
-              "https://your-pdf-url-2.com" // Replace with the actual URL of PDF 2
-            )
-          }
-        >
-          <Text style={styles.buttonText}>Open PDF 2</Text>
-        </TouchableOpacity>
-        {/* Add more buttons for other PDFs */}
+        {books.map((book) => (
+          <TouchableOpacity
+            key={book._id} // Use a unique key for each book
+            style={styles.button}
+            onPress={() => openPdf(book.Link)} // Assuming your book object has a "pdfUrl" property
+          >
+            <Text style={styles.buttonText}>{book.title}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
-      <HeroImage />
     </View>
   );
 };
