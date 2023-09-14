@@ -25,6 +25,11 @@ import BookDetailsScreen from "../Screens/BookDetailsScreen/BookDetailsScreen";
 import Books from "../components/Books/Books";
 import NotificationsScreen from "../Screens/NotificationsScreen/NotificationsScreen";
 import LibraryScreen from "../Screens/LibraryScreen/LibraryScreen";
+import PaymentScreen from "../Screens/PaymentScreen/PaymentScreen";
+import DictionaryScreen from "../Screens/DictionaryScreen/DictionaryScreen";
+import FavoritesScreen from "../Screens/FavouritesScreen/FavouritesScreen";
+
+
 
 const Stack = createNativeStackNavigator();
 
@@ -121,6 +126,11 @@ const Navigation = () => {
             <Stack.Screen name="BookDetailsScreen" component={BookDetailsScreen} />
             <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
             <Stack.Screen name="LibraryScreen" component={LibraryScreen} />
+            <Stack.Screen name="PublishScreen" component={PublishScreen} />
+            <Stack.Screen name="HelpScreen" component={HelpScreen} />
+            <Stack.Screen name="PaymentScreen"  component={PaymentScreen}/>
+            <Stack.Screen name="DictionaryScreen" component={DictionaryScreen} />
+            <Stack.Screen name="FavouritesScreen" component={FavoritesScreen} />
         </Stack.Navigator>
         
         </NavigationContainer>

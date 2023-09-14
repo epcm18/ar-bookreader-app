@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, Dimensions }
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import BookDetailsScreen from '../../Screens/BookDetailsScreen/BookDetailsScreen';
-
+import BooksHorizontal from '../BooksHorizontal';
 import { categoryData, bookItems } from '../../components/BookData/index'; // Import dummy data
 
 const windowWidth = Dimensions.get('window').width;
@@ -46,6 +46,24 @@ export default function Books() {
     </View>
   );
 }
+
+export const BooksRecent = () => {
+  return <BooksHorizontal title="Recent" data={bookItems} />;
+}
+
+export const BooksReccomended = () => {
+  return <BooksHorizontal title="Reccomended" data={bookItems} />;
+}
+
+export const BooksFavourites = () => {
+  return <BooksHorizontal title="Favourites" data={bookItems} />;
+}
+
+export const BooksAR = () => {
+  return <BooksHorizontal title="AR" data={bookItems} />;
+}
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -100,9 +118,5 @@ const styles = StyleSheet.create({
   bottomText: {
     fontWeight: 'bold',
   },
-  loginText: {
-    color: '#3da749',
-    fontWeight: 'bold',
-    marginLeft: 4,
-  },
+  
 });

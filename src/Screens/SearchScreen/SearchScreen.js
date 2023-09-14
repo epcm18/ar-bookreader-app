@@ -58,9 +58,9 @@ const SearchScreen = () => {
               />
             </TouchableOpacity>
             <View style={{ marginRight: 20 }} />
-            <TouchableOpacity onPress={() => navigation.navigate("LibraryScreen")}>
+            <TouchableOpacity onPress={() => navigation.navigate("FavouritesScreen")}>
               <MaterialCommunityIcons
-                name="book"
+                name="heart"
                 size={24}
                 color="white" // Customize the icon color
               />

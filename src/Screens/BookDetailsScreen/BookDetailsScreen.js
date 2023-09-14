@@ -148,14 +148,15 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   coverImageContainer: {
-    backgroundColor: '#9996',
-    borderRadius: 8,
+    height: 400,
+    backgroundColor: '#9993',
+    borderRadius: 30,
     alignItems: 'center',
     overflow: 'hidden', // To ensure the image doesn't overflow its container
   },
   bookImage: {
-    width: '50%',
-    height: 250,
+    width: '70%',
+    height: 400,
     overflow: 'hidden',
   },
   bookTitle: {
