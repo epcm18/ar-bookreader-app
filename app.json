@@ -1,17 +1,23 @@
 {
   "expo": {
     "name": "PixieApp",
-    "slug": "PixieApp",
+    "slug": "arbookreaderapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "plugin": [
+      "@config-plugins/react-native-blob-util",
+      "@config-plugins/react-native-pdf"
+    ],
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -27,8 +33,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "1134c159-e130-404c-b633-03842fb06d53"
+        "projectId": "a7d4aa58-f788-4398-9585-634aa028debd"
       }
-    }
+    },
+    "owner": "sanuth"
   }
 }

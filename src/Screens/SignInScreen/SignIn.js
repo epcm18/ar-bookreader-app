@@ -19,8 +19,8 @@ const SignIn = () => {
   const navigation = useNavigation();
 
   const onSignInPressed = async (e) => {
-    e.preventDefault();
-    await login(email, password);
+    //e.preventDefault();
+    //await login(email, password);
     navigation.navigate("HomeScreen");
   };
 
