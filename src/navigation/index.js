@@ -15,7 +15,8 @@ import NewPasswordScreen from '../Screens/NewPasswordScreen/NewPasswordScreen';
 import HomeScreen from '../Screens/HomeScreen/HomeScreen';
 import LandingScreen from '../Screens/LandingScreen/LandingScreen';
 import EditProfileScreen from "../Screens/EditProfileScreen/EditProfileScreen";
-
+import PaymentMethodScreen from "../Screens/PaymentMethodScreen/PayementMethodScreen"; 
+import PaymentDetailsScreen from "../Screens/PaymentDetailsScreen/PaymentDetailsScreen";
 
 import SearchScreen from '../Screens/SearchScreen/SearchScreen';
 import HelpScreen from '../Screens/HelpScreen/HelpScreen';
@@ -119,6 +120,8 @@ const Navigation = () => {
             <Stack.Screen name="SignUpConfirm" component={SignUpConfirm} />
             <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
             <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} />
+            <Stack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen} />
+            <Stack.Screen name="PaymentDetailsScreen" component={PaymentDetailsScreen} />
             <Stack.Screen name="HomeScreen" component={Home} />
             <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
             <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />

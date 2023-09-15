@@ -16,7 +16,7 @@ const SignIn = () => {
     // validate email and password
 
     // if valid, navigate to the home screen
-    navigation.navigate('HomeScreen');
+    navigation.navigate('PaymentMethodScreen');
   };
 
   const onForgotPasswordPressed = () => {
