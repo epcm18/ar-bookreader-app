@@ -1,166 +1,288 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView, TouchableOpacity, Image } from "react-native";
-import CustomButton from "../../components/CustomButton/CustomButton";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useNavigation } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import FavouritesScreen from "../FavouritesScreen/FavouritesScreen";
+import BookCard from "../../components/BookCard";
+import Activity from "../../components/Activity";
+import { bookItems } from "../../components/BookData";
+const UserProfile = () => {
 
-const UserProfileScreen = () => {
-    const navigation = useNavigation();
+  const navigation = useNavigation();
 
-    const OnCustomizePressed = () => {
-        console.warn('Customize');
-        navigation.navigate('EditProfileScreen');
-    };
-    const OnSignOutPressed = () => {
-        console.warn('Sign Out');
-        navigation.navigate('LandingScreen');
-    };
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
+  const [activeTab, setActiveTab] = useState("Activity");
 
-    return (
-        <ScrollView style={styles.container}>
-            <View style={styles.blueRectangle}>
-                <View style={styles.profileContainer}>
-                    {/* User Profile Picture (Assuming a circular image) */}
-                    <View style={styles.profileImageWrapper}>
-                        <Image
-                            source={require("../../../assets/profile.jpeg")} // Add your image source here
-                            style={styles.profileImage}
-                        />
-                        <TouchableOpacity onPress={OnCustomizePressed} style={styles.editIconWrapper}>
-                            
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.levelCircle}>
-                        <Text style={styles.levelText}>1</Text>
-                    </View>
-                    
-                    
-                </View>
-                <Text style={styles.username}>Klazer123</Text>
-                <CustomButton text="Customize" onPress={OnCustomizePressed} type='PRIMARY' bgColor="#fff" fgColor='#FF34DF'/>
-                <CustomButton text="Sign Out" onPress={OnSignOutPressed} type='PRIMARY' bgColor="#fff" fgColor='#FF34DF'/>
-            </View>
-            <Text style={styles.header}>My Profile</Text>
-            <Text style={styles.subheader}>Level 1 - Novice</Text>
-            
-            <View style={styles.divider}></View>
+  const onTabPress = (tabName) => {
+    // Update the active tab when a tab is pressed
+    setActiveTab(tabName);
+  };
 
-            <View style={styles.dashboard}>
-                <View style={styles.dashboardItem}>
-                    <Text style={styles.dashboardNumber}>1</Text>
-                    <Text style={styles.dashboardLabel}>Books</Text>
-                </View>
-                <View style={styles.dashboardItem}>
-                    <Text style={styles.dashboardNumber}>1.2</Text>
-                    <Text style={styles.dashboardLabel}>Hours</Text>
-                </View>
-                <View style={styles.dashboardItem}>
-                    <Text style={styles.dashboardNumber}>9</Text>
-                    <Text style={styles.dashboardLabel}>Favourites</Text>
-                </View>
-            </View>
-        </ScrollView>
-    );
+  const onEditProfile = () => {
+    // Handle edit profile action
+    console.warn("Edit Profile");
+    navigation.navigate("EditProfileScreen");
+  };
+
+  const onDictionary = () => {
+    // Handle dictionary action
+    console.log("Dictionary");
+    navigation.navigate("DictionaryScreen");
+  };
+
+  const onSignOut = () => {
+    // Handle sign out action
+    console.log("Sign Out");
+    navigation.navigate("LandingScreen");
+  };
+
+  const toggleOptionsMenu = () => {
+    setShowOptionsMenu(!showOptionsMenu);
+  };
+
+  const onHelp = () => {
+    console.warn("Help");
+    navigation.navigate("HelpScreen");
+  };
+  const onPublish = () => {
+    console.warn("Publish");
+    navigation.navigate("PublishScreen");
+  };
+
+  const onPayment = () => {
+    console.warn("Payment");
+    navigation.navigate("PaymentScreen");
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Top Bar */}
+      <View style={styles.topBar}>
+        <Text style={styles.topBarText}>Henry Klasen</Text>
+        <TouchableOpacity onPress={toggleOptionsMenu}>
+          <MaterialIcons name="more-vert" size={30} color="black" />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.profileInfo}>
+        <Image
+          source={require("../../../assets/profile.jpeg")} // Replace with your profile picture
+          style={styles.profilePicture}
+        />
+        <Text style={styles.username}>@YourUsername</Text>
+        <Text style={styles.level}>Level 1 - Novice</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            onPress={onEditProfile}
+            style={styles.editProfileButton}
+          >
+            <Text style={styles.buttonText}>Edit Profile</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onDictionary} style={styles.dictionaryButton}>
+            <Text style={styles.buttonText}>Dictionary</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Dashboard */}
+      <View style={styles.dashboard}>
+        {/* Display your dashboard items here */}
+        <View style={styles.dashboardItem}>
+          <Text style={styles.dashboardNumber}>123</Text>
+          <Text style={styles.dashboardLabel}>Books</Text>
+        </View>
+        <View style={styles.dashboardItem}>
+          <Text style={styles.dashboardNumber}>4.5</Text>
+          <Text style={styles.dashboardLabel}>Hours</Text>
+        </View>
+        <View style={styles.dashboardItem}>
+          <Text style={styles.dashboardNumber}>56</Text>
+          <Text style={styles.dashboardLabel}>Favourites</Text>
+        </View>
+      </View>
+      <View style={styles.tabBar}>
+        <TouchableOpacity
+          style={[styles.tabItem, activeTab === "Activity" && styles.activeTab]}
+          onPress={() => onTabPress("Activity")}
+        >
+          <Text style={styles.tabText}>Activity</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tabItem, activeTab === "Favorites" && styles.activeTab]}
+          onPress={() => onTabPress("Favorites")}
+        >
+          <Text style={styles.tabText}>Favorites</Text>
+        </TouchableOpacity>
+      </View>
+      
+      {/* Content */}
+      {activeTab === "Activity" && (
+        /* Content for the "" tab */
+        <View style={styles.content}>
+          {/* Display content here */}
+          <Text style={styles.activityHeader}>Continue Your Journey</Text>
+    <Activity
+        book={bookItems[0]}
+        
+    />
+  
+        </View>
+      )}
+      
+      {activeTab === "Favorites" && (
+        /* Content for the "Favorites" tab */
+        <View style={styles.content}>
+          {/* Display favorite content here */}
+          
+          <FavouritesScreen/>
+        </View>
+      )}
+      {/* Options Menu */}
+      {showOptionsMenu && (
+        <View style={styles.optionsMenu}>
+          <TouchableOpacity onPress={onHelp} style={styles.optionItem}>
+            <Text style={styles.optionText}>Help</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPublish} style={styles.optionItem}>
+            <Text style={styles.optionText}>Publish</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onPayment} style={styles.optionItem}>
+            <Text style={styles.optionText}>Payment Plans</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onSignOut} style={styles.optionItem}>
+            <Text style={styles.optionText}>Sign Out</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
+  );
 };
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "white",
-    },
-    blueRectangle: {
-        backgroundColor: "#0A96E6", // Blue color
-        justifyContent: "center",
-        alignItems: "center",
-        marginHorizontal: 55,
-        marginVertical: 20,
-        borderRadius: 30,
-        paddingTop: 20,
-        paddingBottom: 20,
-        
-    },
-    profileContainer: {
-        alignItems: "center",
-    },
-    profileImageWrapper: {
-        position: "relative",
-        width: 120, 
-        height: 120, 
-        borderRadius: 60, 
-        overflow: "hidden",
-        marginBottom: 15,
-    },
-    profileImage: {
-        width: "100%",
-        height: "100%",
-    },
-    levelCircle: {
-        position: "absolute",
-        bottom: -10, // Adjust to control the intersection
-        left: windowWidth * 0.10, // Adjust to control the intersection
-        width: 40, // Adjust the circle size
-        height: 40, // Make it a circle
-        borderRadius: 20, // Half of width/height to make it a circle
-        backgroundColor: "#FF34DF", // Circle color
-        justifyContent: "center",
-        alignItems: "center",
-        marginBottom: 10,
-    },
-    levelText: {
-        color: "white",
-        fontWeight: "bold",
-    },
-    username: {
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "white",
-    },
-    divider: {
-        height: 10,
-        backgroundColor: "#D9D9D9",
-        marginHorizontal: 20,
-        borderRadius: 20,
-        marginTop: 30,
-    },
-    header: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginHorizontal: 20,
-        textAlign: "center",
-        color: "#0A96E6",
-    },
-    subheader: {
-        fontSize: 15,
-        textAlign: "center",
-    },
-    dashboard: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingHorizontal: 25,
-        marginTop: 20,
-    },
-    dashboardItem: {
-        alignItems: "center",
-    },
-    dashboardNumber: {
-        fontSize: 24,
-        fontWeight: "bold",
-    },
-    dashboardLabel: {
-        fontSize: 16,
-        color: "#555", // Adjust label color
-    },
-    editIconWrapper: {
-        position: "absolute",
-        bottom: 0,
-        right: 0,
-        backgroundColor: "#808080",
-        borderRadius: 20, // Adjust as needed for your icon
-        padding: 5,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+  },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
+    borderColor: "lightgray",
+    borderBottomWidth: 1,
+  },
+  topBarText: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  profileInfo: {
+    alignItems: "center",
+  },
+  profilePicture: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginVertical: 10,
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  level: {
+    fontSize: 16,
+    color: "gray",
+    marginBottom: 10,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 20,
+  },
+  editProfileButton: {
+    borderWidth: 2,
+    borderColor: "#0A84FF",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  dictionaryButton: {
+    borderWidth: 2,
+    borderColor: "#0A84FF",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  buttonText: {
+    color: "#0A84FF",
+  },
+  dashboard: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginHorizontal: 30,
+  },
+  dashboardItem: {
+    alignItems: "center",
+    marginVertical: 5, // Reduced margin here
+  },
+  dashboardNumber: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  dashboardLabel: {
+    fontSize: 16,
+    color: "gray",
+  },
+  optionsMenu: {
+    position: "absolute",
+    top: 60,
+    right: 10,
+    backgroundColor: "white",
+    elevation: 5,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: "lightgray",
+  },
+  optionItem: {
+    padding: 10,
+  },
+  optionText: {
+    fontSize: 16,
+  },
+  tabBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: "center",
+    paddingVertical: 10,
+    borderBottomWidth: 2, // Bottom border to indicate active tab
+    borderColor: "transparent", // Initially no border
+  },
+  activeTab: {
+    borderColor: "#0A84FF", // Border color for active tab
+  },
+  tabText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "gray",
+  },
+  content: {
+    flex: 1,
+    padding: 10,
+    // Add styles for the content of each tab
+  },
+  activityHeader: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
 });
 
-export default UserProfileScreen;
+export default UserProfile;
