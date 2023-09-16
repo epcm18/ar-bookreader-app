@@ -36,7 +36,7 @@ const HomeScreen = () => {
           <TouchableOpacity
             key={book._id} // Use a unique key for each book
             style={styles.button}
-            onPress={() => openPdf(book.Link)} // Assuming your book object has a "pdfUrl" property
+            onPress={() => openPdf(book.Link)}
           >
             <Text style={styles.buttonText}>{book.title}</Text>
           </TouchableOpacity>
@@ -57,10 +57,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   button: {
-    width: 80, // Adjust the width to make it square
-    height: 80, // Adjust the height to make it square
-    backgroundColor: "white", // Set the background color to white
-    borderRadius: 10, // Adjust the border radius for rounded corners
+    width: 80,
+    height: 80,
+    backgroundColor: "white",
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     margin: 10,
