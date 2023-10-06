@@ -1,11 +1,12 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { useRoute } from "@react-navigation/native";
-import PdfRead from "../../components/PdfRead";
+import React from 'react';
+import {View, StyleSheet} from 'react-native';
+import {useRoute} from '@react-navigation/native';
+import PdfRead from '../../components/PdfRead';
 
 const PdfScreen = () => {
   const route = useRoute();
-  const { pdfUrl } = route.params;
+  const {pdfUrl} = route.params;
+  console.log(pdfUrl);
 
   return (
     <View style={styles.container}>

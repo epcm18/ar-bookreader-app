@@ -1,5 +1,3 @@
-import {useFetchBooks} from '../../hooks/useFetchBooks';
-
 export const categoryData = [
   {
     id: 1,
@@ -23,4 +21,8 @@ export const categoryData = [
   },
 ];
 
-export const bookItems = books;
+export const bookItems = [];
+
+export function addBookstobookItems(books) {
+  bookItems.push(...books);
+}

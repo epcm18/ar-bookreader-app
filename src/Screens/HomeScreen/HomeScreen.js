@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, {useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
   View,
   StyleSheet,
@@ -8,27 +8,27 @@ import {
   Text,
   TouchableOpacity,
   ScrollView,
-} from "react-native";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import heroImage from "../../../assets/MainTopImg.jpeg";
-import Books from "../../components/Books/Books";
-import { BooksRecent } from "../../components/Books/Books";
-import { BooksReccomended } from "../../components/Books/Books";
-import { BooksFavourites } from "../../components/Books/Books";
-import { BooksAR } from "../../components/Books/Books";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+} from 'react-native';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import heroImage from '../../../assets/MainTopImg.jpeg';
+import Books from '../../components/Books/Books';
+import {BooksRecent} from '../../components/Books/Books';
+import {BooksReccomended} from '../../components/Books/Books';
+import {BooksFavourites} from '../../components/Books/Books';
+import {BooksAR} from '../../components/Books/Books';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faThumbsUp,
   faHeart,
   faVrCardboard,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons';
 
-const height = Dimensions.get("window").height;
+const height = Dimensions.get('window').height;
 
 // Define your screen components
 const ForYouScreen = () => (
   <ScrollView>
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <BooksRecent />
       <BooksReccomended />
       <BooksFavourites />
@@ -39,7 +39,7 @@ const ForYouScreen = () => (
 
 const ARScreen = () => (
   <ScrollView>
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <BooksAR />
     </View>
   </ScrollView>
@@ -47,13 +47,13 @@ const ARScreen = () => (
 
 const FavoritesScreen = () => (
   <ScrollView>
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <BooksFavourites />
     </View>
   </ScrollView>
 );
 
-const initialLayout = { width: Dimensions.get("window").width };
+const initialLayout = {width: Dimensions.get('window').width};
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -63,12 +63,14 @@ const HomeScreen = () => {
   const fetchBooks = async () => {
     try {
       const response = await fetch(
-        "http://192.168.1.144:4000/api/book/getBooks"
+        'http://10.10.21.146:4000/api/book/getBooks',
       );
+
       const data = await response.json();
       setBooks(data);
+      console.log('response received');
     } catch (error) {
-      console.error("Error fetching books:", error);
+      console.error('Error fetching books:', error);
     }
   };
 
@@ -78,15 +80,15 @@ const HomeScreen = () => {
   }, []);
 
   // Function to navigate to the PDF screen with a specific PDF URL
-  const openPdf = (pdfUrl) => {
-    navigation.navigate("PDF", { pdfUrl });
+  const openPdf = pdfUrl => {
+    navigation.navigate('PDF', {pdfUrl});
   };
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
-    { key: "forYou", title: "FOR YOU", icon: faThumbsUp },
-    { key: "ar", title: "AR", icon: faVrCardboard },
-    { key: "favorites", title: "FAVORITES", icon: faHeart },
+    {key: 'forYou', title: 'FOR YOU', icon: faThumbsUp},
+    {key: 'ar', title: 'AR', icon: faVrCardboard},
+    {key: 'favorites', title: 'FAVORITES', icon: faHeart},
   ]);
 
   const renderScene = SceneMap({
@@ -95,18 +97,18 @@ const HomeScreen = () => {
     favorites: FavoritesScreen,
   });
 
-  const renderTabBar = (props) => (
+  const renderTabBar = props => (
     <TabBar
       {...props}
       style={styles.tabBar}
-      renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: "#000", margin: 8 }}>{route.title}</Text>
+      renderLabel={({route, focused, color}) => (
+        <Text style={{color: '#000', margin: 8}}>{route.title}</Text>
       )}
-      renderIcon={({ route, focused, color }) => (
+      renderIcon={({route, focused, color}) => (
         <FontAwesomeIcon
           icon={route.icon}
           size={20} // Adjust the size as needed
-          color={focused ? "#0A96E6" : "#999"} // Customize the color based on focus
+          color={focused ? '#0A96E6' : '#999'} // Customize the color based on focus
         />
       )}
     />
@@ -116,12 +118,12 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <Image source={heroImage} style={styles.hero} resizeMode="cover" />
       <TabView
-        navigationState={{ index, routes }}
+        navigationState={{index, routes}}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
         renderTabBar={renderTabBar}
-        indicatorStyle={{ backgroundColor: "#000" }}
+        indicatorStyle={{backgroundColor: '#000'}}
       />
     </View>
   );
@@ -132,11 +134,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   hero: {
-    width: "100%",
+    width: '100%',
     height: height * 0.25,
   },
   tabBar: {
-    backgroundColor: "#fff", // Customize the tab bar background color
+    backgroundColor: '#fff', // Customize the tab bar background color
   },
 });
 

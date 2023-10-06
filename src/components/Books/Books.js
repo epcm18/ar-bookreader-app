@@ -14,8 +14,8 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import BookDetailsScreen from '../../Screens/BookDetailsScreen/BookDetailsScreen';
 import BooksHorizontal from '../BooksHorizontal';
-import {categoryData, bookItems} from '../../components/BookData/index'; // Import dummy data
 import {useFetchBooks} from '../../hooks/useFetchBooks';
+import {addBookstobookItems} from '../BookData';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -29,11 +29,11 @@ export default function Books() {
   useEffect(() => {
     if (!loading && !error && books.length > 0) {
       setFetchedBooks(books);
+      addBookstobookItems(books);
     }
   }, [loading, error, books]);
 
   const renderBookItem = ({item}) => {
-    const encodedURI = encodeURI(item.image);
     return (
       <TouchableOpacity
         style={styles.bookItem}
@@ -71,19 +71,19 @@ export default function Books() {
 }
 
 export const BooksRecent = () => {
-  return <BooksHorizontal title="Recent" data={bookItems} />;
+  return <BooksHorizontal title="Recent" data={4} />;
 };
 
 export const BooksReccomended = () => {
-  return <BooksHorizontal title="Reccomended" data={bookItems} />;
+  return <BooksHorizontal title="Reccomended" data={4} />;
 };
 
 export const BooksFavourites = () => {
-  return <BooksHorizontal title="Favourites" data={bookItems} />;
+  return <BooksHorizontal title="Favourites" data={4} />;
 };
 
 export const BooksAR = () => {
-  return <BooksHorizontal title="AR" data={bookItems} />;
+  return <BooksHorizontal title="AR" data={4} />;
 };
 
 const styles = StyleSheet.create({
