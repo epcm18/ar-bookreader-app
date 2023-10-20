@@ -1,22 +1,42 @@
-import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, useWindowDimensions, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  useWindowDimensions,
+  TouchableOpacity,
+} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import signInPageHero from '../../../assets/signInPageHero.png';
-
+import {useLogin} from '../../hooks/useLogin';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {login, error, isLoading} = useLogin();
 
   const navigation = useNavigation();
 
-  const onSignInPressed = () => {
-    console.warn('Sign in');
-    // validate email and password
-
-    // if valid, navigate to the home screen
-    navigation.navigate('PaymentMethodScreen');
+  const onSignInPressed = async () => {
+    // e.preventDefault();
+    try{
+      console.log("error", error, isLoading);
+      const err = await login(email, password);
+      console.log("error2", err)
+      if (err == null){
+        console.warn("Login successful");
+        navigation.navigate('PaymentMethodScreen');
+      }
+      else{
+        console.warn("Login unsuccessful");
+      }
+    }catch(error){
+      console.error(error);
+    }
+    
+    
   };
 
   const onForgotPasswordPressed = () => {
@@ -36,17 +56,43 @@ const SignIn = () => {
   return (
     <View style={styles.root}>
       {/* Absolute positioned hero image */}
-      <Image source={signInPageHero} style={styles.heroImage} resizeMode='contain' />
+      <Image
+        source={signInPageHero}
+        style={styles.heroImage}
+        resizeMode="contain"
+      />
 
       {/* Content container */}
       <View style={styles.contentContainer}>
         <Text style={styles.header}>Welcome Back</Text>
         <Text style={styles.subheader}>Sign In to continue your journey</Text>
-        <CustomInput placeholder="E-mail" value={email} setValue={setEmail} secureTextEntry={false} />
-        <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
-        <CustomButton text="Forgot Password?" onPress={onForgotPasswordPressed} type='TERTIARY' />
-        <CustomButton text="Sign In" onPress={onSignInPressed} />
-        <CustomButton text="Don't have an account? Register Now" onPress={onSignUpPressed} type='TERTIARY' />
+        <CustomInput
+          placeholder="E-mail"
+          value={email}
+          setValue={setEmail}
+          secureTextEntry={false}
+        />
+        <CustomInput
+          placeholder="Password"
+          value={password}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
+        <CustomButton
+          text="Forgot Password?"
+          onPress={onForgotPasswordPressed}
+          type="TERTIARY"
+        />
+        <CustomButton
+          text="Sign In"
+          disabled={isLoading}
+          onPress={onSignInPressed}
+        />
+        <CustomButton
+          text="Don't have an account? Register Now"
+          onPress={onSignUpPressed}
+          type="TERTIARY"
+        />
       </View>
     </View>
   );

@@ -1,41 +1,39 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons";
-import { useNavigation } from "@react-navigation/native";
-import FavouritesScreen from "../FavouritesScreen/FavouritesScreen";
-import BookCard from "../../components/BookCard";
-import Activity from "../../components/Activity";
-import { bookItems } from "../../components/BookData";
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
+import {useNavigation} from '@react-navigation/native';
+import FavouritesScreen from '../FavouritesScreen/FavouritesScreen';
+import BookCard from '../../components/BookCard';
+import Activity from '../../components/Activity';
 const UserProfile = () => {
-
   const navigation = useNavigation();
 
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
-  const [activeTab, setActiveTab] = useState("Activity");
+  const [activeTab, setActiveTab] = useState('Activity');
 
-  const onTabPress = (tabName) => {
+  const onTabPress = tabName => {
     // Update the active tab when a tab is pressed
     setActiveTab(tabName);
   };
 
   const onEditProfile = () => {
     // Handle edit profile action
-    console.warn("Edit Profile");
-    navigation.navigate("EditProfileScreen");
+    console.warn('Edit Profile');
+    navigation.navigate('EditProfileScreen');
   };
 
   const onDictionary = () => {
     // Handle dictionary action
-    console.log("Dictionary");
-    navigation.navigate("DictionaryScreen");
+    console.log('Dictionary');
+    navigation.navigate('DictionaryScreen');
   };
 
   const onSignOut = () => {
     // Handle sign out action
-    console.log("Sign Out");
-    navigation.navigate("LandingScreen");
+    console.log('Sign Out');
+    navigation.navigate('LandingScreen');
   };
 
   const toggleOptionsMenu = () => {
@@ -43,17 +41,17 @@ const UserProfile = () => {
   };
 
   const onHelp = () => {
-    console.warn("Help");
-    navigation.navigate("HelpScreen");
+    console.warn('Help');
+    navigation.navigate('HelpScreen');
   };
   const onPublish = () => {
-    console.warn("Publish");
-    navigation.navigate("PublishScreen");
+    console.warn('Publish');
+    navigation.navigate('PublishScreen');
   };
 
   const onPayment = () => {
-    console.warn("Payment");
-    navigation.navigate("PaymentScreen");
+    console.warn('Payment');
+    navigation.navigate('PaymentScreen');
   };
 
   return (
@@ -68,7 +66,7 @@ const UserProfile = () => {
 
       <View style={styles.profileInfo}>
         <Image
-          source={require("../../../assets/profile.jpeg")} // Replace with your profile picture
+          source={require('../../../assets/profile.jpeg')} // Replace with your profile picture
           style={styles.profilePicture}
         />
         <Text style={styles.username}>@YourUsername</Text>
@@ -76,11 +74,12 @@ const UserProfile = () => {
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
             onPress={onEditProfile}
-            style={styles.editProfileButton}
-          >
+            style={styles.editProfileButton}>
             <Text style={styles.buttonText}>Edit Profile</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onDictionary} style={styles.dictionaryButton}>
+          <TouchableOpacity
+            onPress={onDictionary}
+            style={styles.dictionaryButton}>
             <Text style={styles.buttonText}>Dictionary</Text>
           </TouchableOpacity>
         </View>
@@ -104,39 +103,35 @@ const UserProfile = () => {
       </View>
       <View style={styles.tabBar}>
         <TouchableOpacity
-          style={[styles.tabItem, activeTab === "Activity" && styles.activeTab]}
-          onPress={() => onTabPress("Activity")}
-        >
+          style={[styles.tabItem, activeTab === 'Activity' && styles.activeTab]}
+          onPress={() => onTabPress('Activity')}>
           <Text style={styles.tabText}>Activity</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={[styles.tabItem, activeTab === "Favorites" && styles.activeTab]}
-          onPress={() => onTabPress("Favorites")}
-        >
+          style={[
+            styles.tabItem,
+            activeTab === 'Favorites' && styles.activeTab,
+          ]}
+          onPress={() => onTabPress('Favorites')}>
           <Text style={styles.tabText}>Favorites</Text>
         </TouchableOpacity>
       </View>
-      
+
       {/* Content */}
-      {activeTab === "Activity" && (
+      {activeTab === 'Activity' && (
         /* Content for the "" tab */
         <View style={styles.content}>
           {/* Display content here */}
           <Text style={styles.activityHeader}>Continue Your Journey</Text>
-    <Activity
-        book={bookItems[0]}
-        
-    />
-  
         </View>
       )}
-      
-      {activeTab === "Favorites" && (
+
+      {activeTab === 'Favorites' && (
         /* Content for the "Favorites" tab */
         <View style={styles.content}>
           {/* Display favorite content here */}
-          
-          <FavouritesScreen/>
+
+          <FavouritesScreen />
         </View>
       )}
       {/* Options Menu */}
@@ -163,22 +158,22 @@ const UserProfile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   topBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: 10,
-    borderColor: "lightgray",
+    borderColor: 'lightgray',
     borderBottomWidth: 1,
   },
   topBarText: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   profileInfo: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   profilePicture: {
     width: 120,
@@ -188,21 +183,21 @@ const styles = StyleSheet.create({
   },
   username: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   level: {
     fontSize: 16,
-    color: "gray",
+    color: 'gray',
     marginBottom: 10,
   },
   buttonsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
     marginBottom: 20,
   },
   editProfileButton: {
     borderWidth: 2,
-    borderColor: "#0A84FF",
+    borderColor: '#0A84FF',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
@@ -210,41 +205,41 @@ const styles = StyleSheet.create({
   },
   dictionaryButton: {
     borderWidth: 2,
-    borderColor: "#0A84FF",
+    borderColor: '#0A84FF',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
     marginRight: 10,
   },
   buttonText: {
-    color: "#0A84FF",
+    color: '#0A84FF',
   },
   dashboard: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     marginHorizontal: 30,
   },
   dashboardItem: {
-    alignItems: "center",
+    alignItems: 'center',
     marginVertical: 5, // Reduced margin here
   },
   dashboardNumber: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   dashboardLabel: {
     fontSize: 16,
-    color: "gray",
+    color: 'gray',
   },
   optionsMenu: {
-    position: "absolute",
+    position: 'absolute',
     top: 60,
     right: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     elevation: 5,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: "lightgray",
+    borderColor: 'lightgray',
   },
   optionItem: {
     padding: 10,
@@ -253,26 +248,26 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   tabBar: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "white",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: 'white',
     borderBottomWidth: 1,
-    borderColor: "lightgray",
+    borderColor: 'lightgray',
   },
   tabItem: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: 10,
     borderBottomWidth: 2, // Bottom border to indicate active tab
-    borderColor: "transparent", // Initially no border
+    borderColor: 'transparent', // Initially no border
   },
   activeTab: {
-    borderColor: "#0A84FF", // Border color for active tab
+    borderColor: '#0A84FF', // Border color for active tab
   },
   tabText: {
     fontSize: 18,
-    fontWeight: "bold",
-    color: "gray",
+    fontWeight: 'bold',
+    color: 'gray',
   },
   content: {
     flex: 1,
@@ -280,9 +275,9 @@ const styles = StyleSheet.create({
     // Add styles for the content of each tab
   },
   activityHeader: {
-    color: "black",
+    color: 'black',
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 10,
   },
 });

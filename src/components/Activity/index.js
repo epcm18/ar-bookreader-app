@@ -1,14 +1,12 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { bookItems } from '../BookData';
-import { useNavigation } from '@react-navigation/native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-
-const Activity = ({ book }) => {
-    const navigation = useNavigation();
-    const onContinue = () => {
-        navigation.navigate('BookDetailsScreen', { book: book });
-    };
+const Activity = ({book}) => {
+  const navigation = useNavigation();
+  const onContinue = () => {
+    navigation.navigate('BookDetailsScreen', {book: book});
+  };
 
   return (
     <View style={styles.bookItem}>

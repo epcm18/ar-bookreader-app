@@ -1,69 +1,90 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, FlatList, StyleSheet, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  FlatList,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
+import {ActivityIndicator} from 'react-native-paper';
+import {useState, useEffect} from 'react';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
 import BookDetailsScreen from '../../Screens/BookDetailsScreen/BookDetailsScreen';
 import BooksHorizontal from '../BooksHorizontal';
-import { categoryData, bookItems } from '../../components/BookData/index'; // Import dummy data
+import {useFetchBooks} from '../../hooks/useFetchBooks';
+import {addBookstobookItems} from '../BookData';
 
 const windowWidth = Dimensions.get('window').width;
 
 export default function Books() {
   const navigation = useNavigation();
+  const {loading, error, books} = useFetchBooks(); // Fetch books using the custom hook
 
-  const renderBookItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.bookItem}
-      onPress={() => navigation.navigate('BookDetailsScreen', { book: item })} // Pass book data to BookDetails screen
-    >
-      <View style={styles.bookImageContainer}>
-        <Image source={item.coverPage} style={styles.bookImage} />
-      </View>
-      <Text style={styles.bookTitle}>
-        {item.title}
-      </Text>
-    </TouchableOpacity>
-  );
+  // State to store the fetched books
+  const [fetchedBooks, setFetchedBooks] = useState([]);
+
+  useEffect(() => {
+    if (!loading && !error && books.length > 0) {
+      setFetchedBooks(books);
+      addBookstobookItems(books);
+    }
+  }, [loading, error, books]);
+
+  const renderBookItem = ({item}) => {
+    return (
+      <TouchableOpacity
+        style={styles.bookItem}
+        onPress={() => navigation.navigate('BookDetailsScreen', {book: item})}>
+        <View style={styles.bookImageContainer}>
+          {loading ? ( // Display loading indicator if data is still loading
+            <ActivityIndicator size="large" color="blue" />
+          ) : (
+            <Image
+              src={item.image}
+              style={styles.bookImage}
+              resizeMode="cover"
+            />
+          )}
+        </View>
+        <Text style={styles.bookTitle}>{item.title}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.safeAreaContainer}>
-
-        <Text style={styles.title}>
-          All Books
-        </Text>
-
+        <Text style={styles.title}>All Books</Text>
         <FlatList
-          data={bookItems}
-          keyExtractor={(item) => item.id}
+          data={fetchedBooks} // Use the fetched books here
+          keyExtractor={item => item._id}
           renderItem={renderBookItem}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
         />
-
       </View>
-      
     </View>
   );
 }
 
 export const BooksRecent = () => {
-  return <BooksHorizontal title="Recent" data={bookItems} />;
-}
+  return <BooksHorizontal title="Recent" data={4} />;
+};
 
 export const BooksReccomended = () => {
-  return <BooksHorizontal title="Reccomended" data={bookItems} />;
-}
+  return <BooksHorizontal title="Reccomended" data={4} />;
+};
 
 export const BooksFavourites = () => {
-  return <BooksHorizontal title="Favourites" data={bookItems} />;
-}
+  return <BooksHorizontal title="Favourites" data={4} />;
+};
 
 export const BooksAR = () => {
-  return <BooksHorizontal title="AR" data={bookItems} />;
-}
-
-
+  return <BooksHorizontal title="AR" data={4} />;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -91,7 +112,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     shadowColor: 'black',
     shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
   },
   bookImageContainer: {
     alignItems: 'center',
@@ -118,5 +139,4 @@ const styles = StyleSheet.create({
   bottomText: {
     fontWeight: 'bold',
   },
-  
 });

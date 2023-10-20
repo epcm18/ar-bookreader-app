@@ -4,6 +4,7 @@ import { Checkbox } from 'react-native-paper';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { useSignup } from '../../hooks/useSignup.js';
 
 import signUpPageHero from '../../../assets/signUpPageHero.png';
 
@@ -12,30 +13,51 @@ const SignUp = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [userName, setUserName] = useState('');
+  // const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [checked, setChecked] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const {signup, error, isLoading} = useSignup();
+
   const onSignInPressed = () => {
-    console.warn('Sign in');
-
+    console.warn('Sign in'); 
     navigation.navigate('SignIn');
+    
+    
   };
 
-  const onSignUpPressed = () => {
+  const onSignUpPressed = async () => {
     if (!isFormValid) {
-      // Check if the form is not valid
       console.warn('Please fill in all fields and accept the Terms & Conditions.');
-      return; // Don't proceed with sign-up
+      return;
     }
-    console.warn('Sign Up');
-    navigation.navigate('SignUpConfirm');
+  
+    try {
+      // setIsLoading(true);;
+      console.log("error", error, isLoading)
+  
+      // Call the signup function with the user data
+      const err = await signup(firstName, lastName, email, password, confirmPassword);
+      console.log("error2", error)
+      if (err == null){
+        console.warn('Sign Up successful');
+        navigation.navigate('SignUpConfirm');
+      }
+      else{
+        console.warn('Sign Up unsuccessful');
+      }
+    } catch (error) {
+        console.error('Error during sign up:', error);
+      // Handle error (you can set an error state here if needed)
+    } 
   };
+  
 
   const checkFormValidity = () => {
-    if (firstName && lastName && userName && email && password && checked) {
+    if (firstName && lastName && email && password && checked) {
       setIsFormValid(true);
     } else {
       setIsFormValid(false);
@@ -45,7 +67,7 @@ const SignUp = () => {
   // Call checkFormValidity whenever any input field or checkbox changes
   React.useEffect(() => {
     checkFormValidity();
-  }, [firstName, lastName, userName, email, password, checked]);
+  }, [firstName, lastName, email, password, checked]);
 
   const height = useWindowDimensions().height;
 
@@ -57,9 +79,10 @@ const SignUp = () => {
         <Text style={styles.subheader}>Begin your journey with us today</Text>
         <CustomInput placeholder="First Name" value={firstName} setValue={setFirstName} secureTextEntry={false} />
         <CustomInput placeholder="Last Name" value={lastName} setValue={setLastName} secureTextEntry={false} />
-        <CustomInput placeholder="Username" value={userName} setValue={setUserName} secureTextEntry={false} />
+        {/* <CustomInput placeholder="Username" value={userName} setValue={setUserName} secureTextEntry={false} /> */}
         <CustomInput placeholder="E-mail" value={email} setValue={setEmail} secureTextEntry={false} />
         <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
+        <CustomInput placeholder="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} secureTextEntry={true} />
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
             status={checked ? 'checked' : 'unchecked'}

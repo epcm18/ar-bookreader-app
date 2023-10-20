@@ -1,18 +1,35 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, Modal } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faHeart, faBookOpen, faBookReader, faSpellCheck } from '@fortawesome/free-solid-svg-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { faArrowLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+  ScrollView,
+  Modal,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faHeart,
+  faBookOpen,
+  faBookReader,
+  faSpellCheck,
+} from '@fortawesome/free-solid-svg-icons';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {faArrowLeft, faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faSquareXmark} from '@fortawesome/free-solid-svg-icons';
 
-const BookDetailsScreen = ({ route }) => {
-  const { book } = route.params;
+const BookDetailsScreen = ({route}) => {
+  const {book} = route.params;
   const navigation = useNavigation();
   const [wishlisted, setWishlisted] = useState(false);
   const [reserved, setReserved] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
+
+  const openPdf = pdfUrl => {
+    navigation.navigate('PDF', {pdfUrl});
+  };
 
   const handleWishlistToggle = () => {
     setWishlisted(!wishlisted);
@@ -29,6 +46,7 @@ const BookDetailsScreen = ({ route }) => {
 
   const handleModalClose = () => {
     setShowButtons(false);
+    navigation.navigate('DictionaryScreen');
   };
 
   return (
@@ -37,15 +55,13 @@ const BookDetailsScreen = ({ route }) => {
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.goBackButton}
-            onPress={() => navigation.goBack()}
-          >
+            onPress={() => navigation.goBack()}>
             <FontAwesomeIcon icon={faArrowLeft} size={20} color="black" />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.coverImageContainer}
-            onPress={handleCoverImagePress}
-          >
+            onPress={handleCoverImagePress}>
             <Image source={book.coverPage} style={styles.bookImage} />
           </TouchableOpacity>
 
@@ -54,8 +70,7 @@ const BookDetailsScreen = ({ route }) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.wishlistButton}
-              onPress={handleWishlistToggle}
-            >
+              onPress={handleWishlistToggle}>
               <View style={styles.iconTextContainer}>
                 <FontAwesomeIcon
                   icon={faHeart}
@@ -71,8 +86,7 @@ const BookDetailsScreen = ({ route }) => {
             <TouchableOpacity
               style={styles.reserveButton}
               onPress={handleReserveToggle}
-              disabled={book.reserved}
-            >
+              disabled={book.reserved}>
               <View style={styles.iconTextContainer}>
                 <FontAwesomeIcon
                   icon={faBookOpen}
@@ -95,28 +109,36 @@ const BookDetailsScreen = ({ route }) => {
             visible={showButtons}
             transparent={true}
             animationType="slide"
-            onRequestClose={handleModalClose}
-          >
+            onRequestClose={handleModalClose}>
             <View style={styles.modalView}>
               <TouchableOpacity
                 style={styles.modalCloseButton}
-                onPress={handleModalClose}
-              >
-                <FontAwesomeIcon icon={faSquareXmark} size={35} color="#0A96E6" />
+                onPress={handleModalClose}>
+                <FontAwesomeIcon
+                  icon={faSquareXmark}
+                  size={35}
+                  color="#0A96E6"
+                />
               </TouchableOpacity>
               <View style={styles.modalButtonRow}>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={handleModalClose}
-                >
-                  <FontAwesomeIcon icon={faBookReader} size={24} color="black" />
+                  onPress={() => openPdf(book.Link)}>
+                  <FontAwesomeIcon
+                    icon={faBookReader}
+                    size={24}
+                    color="black"
+                  />
                   <Text style={styles.modalButtonText}>Read Book Now</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={handleModalClose}
-                >
-                  <FontAwesomeIcon icon={faSpellCheck} size={24} color="black" />
+                  onPress={handleModalClose}>
+                  <FontAwesomeIcon
+                    icon={faSpellCheck}
+                    size={24}
+                    color="black"
+                  />
                   <Text style={styles.modalButtonText}>Go to Dictionary</Text>
                 </TouchableOpacity>
               </View>

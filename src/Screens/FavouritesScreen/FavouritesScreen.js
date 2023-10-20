@@ -1,48 +1,47 @@
-import React, { useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import { bookItems } from '../../components/BookData'; // Import your dummy data
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import BookCard from '../../components/BookCard';
-
-
+import Books from '../../components/Books/Books';
 
 const FavouritesScreen = () => {
   const navigation = useNavigation();
-  const [wishlist, setWishlist] = useState(bookItems.filter((book) => book.inWishlist));
 
-  const handleRemoveFromWishlist = (bookId) => {
+  const handleRemoveFromWishlist = bookId => {
     // Remove the book from the wishlist based on its ID
-    const updatedWishlist = wishlist.filter((book) => book.id !== bookId);
+    const updatedWishlist = wishlist.filter(book => book.id !== bookId);
     setWishlist(updatedWishlist);
   };
 
   // Render each book item in the wishlist
-  const renderItem = ({ item }) => (
+  const renderItem = ({item}) => (
     <BookCard
-        book={item}
-        showRemoveButton={true} // Pass true to show the remove button
-        onRemovePress={() => handleRemoveFromWishlist(item.id)}
+      book={item}
+      showRemoveButton={true} // Pass true to show the remove button
+      onRemovePress={() => handleRemoveFromWishlist(item.id)}
     />
   );
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
-          style={styles.goBackButton}
-          onPress={() => navigation.goBack()}
-        >
-          {/* <FontAwesomeIcon icon={faArrowLeft} size={20} color="black" /> */}
+        style={styles.goBackButton}
+        onPress={() => navigation.goBack()}>
+        {/* <FontAwesomeIcon icon={faArrowLeft} size={20} color="black" /> */}
       </TouchableOpacity>
 
       <Text style={styles.header}>Wishlist</Text>
-      <FlatList
-        data={wishlist}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-      />
+      <Books />
     </View>
   );
 };
