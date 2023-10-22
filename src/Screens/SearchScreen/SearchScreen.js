@@ -14,11 +14,13 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { bookItems } from "../../components/BookData";
+
 
 const SearchScreen = () => {
   const navigation = useNavigation(); // Initialize navigation
   const [searchText, setSearchText] = useState("");
-  const [selectedFilter, setSelectedFilter] = useState("Recent"); // Add state to keep track of the selected filter
+  const [selectedFilter, setSelectedFilter] = useState(""); // Add state to keep track of the selected filter
 
   // Handle search text input
   const handleSearchTextChange = (text) => {
@@ -30,6 +32,14 @@ const SearchScreen = () => {
   const handleSearch = () => {
     // Implement your search functionality here using searchText
     // Update your UI or navigate to the search results screen
+    // Create a new array to store filtered books
+    const filteredBooks = bookItems.filter((book) =>
+    book.title.toLowerCase().includes(searchText.toLowerCase())
+    );
+    console.log("Search Text:", searchText);
+    console.log("Filtered Books:", filteredBooks);
+
+    setSearchText("");
   };
 
   // Handle the cancel button press to clear the search text

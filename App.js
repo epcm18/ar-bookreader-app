@@ -10,13 +10,16 @@ import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import EditProfileScreen from './src/Screens/EditProfileScreen/EditProfileScreen';
 import Navigation from './src/navigation';
 import {AuthContextProvider} from './src/context/AuthContext';
+// import { FavoritesProvider } from './src/hooks/useFavouriteContext';
 const App = () => {
   return (
     <AuthContextProvider>
+      
       <SafeAreaView style={styles.root}>
         {/* <EditProfileScreen/> */}
         <Navigation />
       </SafeAreaView>
+      
     </AuthContextProvider>
   );
 };

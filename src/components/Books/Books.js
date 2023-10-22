@@ -98,9 +98,15 @@ export default function Books() {
 }
 
 export const BooksRecent = () => {
+  
   const recentBooks = bookItems.slice(-4);
+  if (recentBooks.length > 0) {
   console.log('Recent books:', recentBooks);
   return <BooksHorizontal title="Recent" data={recentBooks} />;
+  }
+  else {
+    return <Text>Loading...</Text>
+  }
 };
 
 export const BooksReccomended = () => {
@@ -108,7 +114,11 @@ export const BooksReccomended = () => {
   const recommendedBooks = bookItems
     .sort(() => 0.5 - Math.random())
     .slice(0, 4);
+  if (recommendedBooks.length > 0) {
   return <BooksHorizontal title="Recommended" data={recommendedBooks} />;
+  }else{
+    return <Text>Loading...</Text>
+  }
 };
 
 export const BooksFavourites = () => {
