@@ -8,9 +8,10 @@ export function useFetchBooks() {
   const fetchBooks = async () => {
     try {
       const response = await fetch(
-        'http://10.10.21.130:4000/api/book/getBooks',
+        'http://192.168.8.181:4000/api/book/getBooks',
       );
       const data = await response.json();
+      console.log("Fetching...: ", data);
       setBooks(data);
       setLoading(false);
     } catch (error) {

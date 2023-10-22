@@ -14,7 +14,7 @@ export const useSignup = () => {
     console.warn('made request');
 
     try {
-      const response = await fetch('http://10.10.21.130:4000/api/user/signup', {
+      const response = await fetch('http://192.168.8.181:4000/api/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ firstName, lastName, email, password, confirmPassword }),

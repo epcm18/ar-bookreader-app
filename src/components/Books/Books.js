@@ -27,7 +27,7 @@ export default function Books() {
   const [fetchedBooks, setFetchedBooks] = useState([]);
 
   useEffect(() => {
-    if (!loading && !error && books.length > 0) {
+    if (!loading && !error && fetchedBooks.length > 0) {
       setFetchedBooks(books);
       addBookstobookItems(books);
     }
@@ -56,6 +56,7 @@ export default function Books() {
 
   return (
     <View style={styles.container}>
+      { fetchedBooks.length > 0 ? (
       <View style={styles.safeAreaContainer}>
         <Text style={styles.title}>All Books</Text>
         <FlatList
@@ -66,6 +67,8 @@ export default function Books() {
           columnWrapperStyle={styles.columnWrapper}
         />
       </View>
+      ) : (
+        <Text>No books found</Text>)}
     </View>
   );
 }
