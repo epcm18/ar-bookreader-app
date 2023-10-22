@@ -12,6 +12,7 @@ export function useFetchBooks() {
       );
       const data = await response.json();
       console.log("Fetching...: ", data);
+      console.log(data.data.books[0].title);
       setBooks(data);
       setLoading(false);
     } catch (error) {

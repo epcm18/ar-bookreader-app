@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import BookDetailsScreen from '../../Screens/BookDetailsScreen/BookDetailsScreen';
 import BooksHorizontal from '../BooksHorizontal';
 import {useFetchBooks} from '../../hooks/useFetchBooks';
-import {addBookstobookItems} from '../BookData';
+import {addBookstobookItems, bookItems} from '../BookData';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -24,14 +24,38 @@ export default function Books() {
   const {loading, error, books} = useFetchBooks(); // Fetch books using the custom hook
 
   // State to store the fetched books
+  
   const [fetchedBooks, setFetchedBooks] = useState([]);
 
+  // Debugging: Log the books array
+  console.log('Books:', books);
+
   useEffect(() => {
-    if (!loading && !error && fetchedBooks.length > 0) {
-      setFetchedBooks(books);
-      addBookstobookItems(books);
+    if (loading) {
+      // Loading state: You can show a loading indicator or a message
+      console.log('Loading books...'); // Debugging: Log loading state
+      return;
     }
+  
+    if (error) {
+      // Error state: You can show an error message
+      console.error('Error loading books:', error); // Log the error for debugging
+      console.log('Failed to load books. Please try again later.'); // Display a user-friendly message
+      return;
+    }
+  
+    if (books.length === 0) {
+      // No books found: You can show a message or handle this case
+      console.log('No books found.'); // Debugging: Log no books found
+      return;
+    }
+  
+    // Books loaded successfully
+    setFetchedBooks(books);
+    console.log('Books loaded successfully:', books.length, 'books');
+    addBookstobookItems(books);
   }, [loading, error, books]);
+  
 
   const renderBookItem = ({item}) => {
     return (
@@ -43,7 +67,7 @@ export default function Books() {
             <ActivityIndicator size="large" color="blue" />
           ) : (
             <Image
-              src={item.image}
+              source={{ uri: item.image}}
               style={styles.bookImage}
               resizeMode="cover"
             />
@@ -56,12 +80,12 @@ export default function Books() {
 
   return (
     <View style={styles.container}>
-      { fetchedBooks.length > 0 ? (
+      { books.length > 0 ? (
       <View style={styles.safeAreaContainer}>
         <Text style={styles.title}>All Books</Text>
         <FlatList
-          data={fetchedBooks} // Use the fetched books here
-          keyExtractor={item => item._id}
+          data={bookItems} // Use the fetched books here
+          keyExtractor={item => item.id}
           renderItem={renderBookItem}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
@@ -74,11 +98,17 @@ export default function Books() {
 }
 
 export const BooksRecent = () => {
-  return <BooksHorizontal title="Recent" data={4} />;
+  const recentBooks = bookItems.slice(-4);
+  console.log('Recent books:', recentBooks);
+  return <BooksHorizontal title="Recent" data={recentBooks} />;
 };
 
 export const BooksReccomended = () => {
-  return <BooksHorizontal title="Reccomended" data={4} />;
+  // Get 4 random books from bookItems
+  const recommendedBooks = bookItems
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 4);
+  return <BooksHorizontal title="Recommended" data={recommendedBooks} />;
 };
 
 export const BooksFavourites = () => {
@@ -86,7 +116,9 @@ export const BooksFavourites = () => {
 };
 
 export const BooksAR = () => {
-  return <BooksHorizontal title="AR" data={4} />;
+  // Filter books with ARcontent = 'yes' from bookItems
+  const arBooks = bookItems.filter((book) => book.ARcontent === 'yes');
+  return <BooksHorizontal title="AR" data={arBooks} />;
 };
 
 const styles = StyleSheet.create({

@@ -62,7 +62,7 @@ const BookDetailsScreen = ({route}) => {
           <TouchableOpacity
             style={styles.coverImageContainer}
             onPress={handleCoverImagePress}>
-            <Image source={book.coverPage} style={styles.bookImage} />
+            <Image source={{ uri: book.image}} style={styles.bookImage} />
           </TouchableOpacity>
 
           <Text style={styles.bookTitle}>{book.title}</Text>
@@ -100,10 +100,11 @@ const BookDetailsScreen = ({route}) => {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.bookCategory}>Category: {book.category}</Text>
+          <Text style={styles.bookCategory}>Category: {book.genre}</Text>
           <Text style={styles.bookAuthor}>Author: {book.author}</Text>
           <Text style={styles.bookLanguage}>Language: {book.language}</Text>
-          <Text style={styles.bookAbstract}>{book.abstract}</Text>
+          <Text style={styles.bookAbstract}>{book.description}</Text>
+          <Text style={styles.bookAbstract}>{book.ratings}</Text>
 
           <Modal
             visible={showButtons}

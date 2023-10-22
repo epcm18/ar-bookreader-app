@@ -24,5 +24,25 @@ export const categoryData = [
 export const bookItems = [];
 
 export function addBookstobookItems(books) {
-  bookItems.push(...books);
+  // Ensure that books is an array
+  console.log('Adding books to bookItems:', books);
+  if (books && books.data && Array.isArray(books.data.books)) {
+    console.log("here");
+    books.data.books.forEach((book) => {
+      // You may need to adjust the properties here according to your data structure
+      const bookItem = {
+        id: book._id,
+        title: book.title,
+        author: book.author,
+        language: book.language,
+        genre: book.genre,
+        ARcontent: book.ARcontent,
+        description: book.description,
+        image: book.image,
+        rating: book.ratings,
+      };
+      bookItems.push(bookItem);
+      console.log('Book added to bookItems:', bookItem);
+    });
+  }
 }

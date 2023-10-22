@@ -21,7 +21,7 @@ const BooksHorizontal = ({ title, data }) => {
                     onPress={() => navigation.navigate('BookDetailsScreen', { book: item })}
                 >
                     <View style={styles.bookImageContainerHorizontal}>
-                        <Image source={item.coverPage} style={styles.bookImageHorizontal} />
+                        <Image source={item.image} style={styles.bookImageHorizontal} />
                     </View>
                     <Text style={styles.bookTitleHorizontal}>
                         {item.title}
