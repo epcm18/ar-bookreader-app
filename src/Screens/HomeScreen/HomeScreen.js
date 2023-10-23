@@ -238,7 +238,7 @@ import heroImage from "../../../assets/MainTopImg.jpeg";
 import Books from "../../components/Books/Books";
 import { BooksRecent } from "../../components/Books/Books";
 import { BooksReccomended } from "../../components/Books/Books";
-import { BooksFavourites } from "../../components/Books/Books";
+import { BooksPopular } from "../../components/Books/Books";
 import { BooksAR } from "../../components/Books/Books";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faThumbsUp, faHeart, faVrCardboard } from "@fortawesome/free-solid-svg-icons";
@@ -251,7 +251,7 @@ const ForYouScreen = () => (
     <View style={{ flex: 1 }}>
       <BooksRecent />
       <BooksReccomended />
-      <BooksFavourites />
+      <BooksPopular />
       <BooksAR />
     </View>
   </ScrollView>
@@ -265,10 +265,10 @@ const ARScreen = () => (
   </ScrollView>
 );
 
-const FavoritesScreen = () => (
+const PopularScreen = () => (
   <ScrollView>
   <View style={{ flex: 1 }}>
-    <BooksFavourites />
+    <BooksPopular />
   </View>
   </ScrollView>
 );
@@ -280,13 +280,13 @@ const HomeScreen = () => {
   const [routes] = useState([
     { key: "forYou", title: "FOR YOU", icon: faThumbsUp },
     { key: "ar", title: "AR", icon: faVrCardboard },
-    { key: "favorites", title: "FAVORITES", icon: faHeart },
+    { key: "popular", title: "POPULAR", icon: faHeart },
   ]);
 
   const renderScene = SceneMap({
     forYou: ForYouScreen,
     ar: ARScreen,
-    favorites: FavoritesScreen,
+    popular: PopularScreen,
   });
 
   const renderTabBar = (props) => (
@@ -300,7 +300,7 @@ const HomeScreen = () => {
         <FontAwesomeIcon
           icon={route.icon}
           size={20} // Adjust the size as needed
-          color={focused ? "#0A96E6" : "#999"} // Customize the color based on focus
+          color={focused ? "#0A96E6" : "#999"} /// Customize the color based on focus
         />
       )}
     />

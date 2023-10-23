@@ -89,15 +89,15 @@ const UserProfile = () => {
       <View style={styles.dashboard}>
         {/* Display your dashboard items here */}
         <View style={styles.dashboardItem}>
-          <Text style={styles.dashboardNumber}>123</Text>
+          <Text style={styles.dashboardNumber}>12</Text>
           <Text style={styles.dashboardLabel}>Books</Text>
         </View>
         <View style={styles.dashboardItem}>
-          <Text style={styles.dashboardNumber}>4.5</Text>
+          <Text style={styles.dashboardNumber}>1.5</Text>
           <Text style={styles.dashboardLabel}>Hours</Text>
         </View>
         <View style={styles.dashboardItem}>
-          <Text style={styles.dashboardNumber}>56</Text>
+          <Text style={styles.dashboardNumber}>11</Text>
           <Text style={styles.dashboardLabel}>Favourites</Text>
         </View>
       </View>

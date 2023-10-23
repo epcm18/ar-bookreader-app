@@ -124,7 +124,7 @@ const BookDetailsScreen = ({route}) => {
               <View style={styles.modalButtonRow}>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={() => openPdf(book.Link)}>
+                  onPress={() => openPdf("https://firebasestorage.googleapis.com/v0/b/arbookreader-50534.appspot.com/o/books%2FOliver%20twist-Charles%20Dickens.pdf?alt=media&token=7ab014d5-fb8f-4a91-9afb-95671dd69bf7")}>
                   <FontAwesomeIcon
                     icon={faBookReader}
                     size={24}

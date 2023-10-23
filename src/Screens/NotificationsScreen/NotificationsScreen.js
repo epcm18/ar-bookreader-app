@@ -10,14 +10,14 @@ const NotificationsScreen = () => {
                     <Text style={styles.notificationTitle}>New Book Added</Text>
                     <Text style={styles.notificationTime}>2 hours ago</Text>
                 </View>
-                <Text style={styles.notificationText}>You have added "All is well" to your library.</Text>
+                <Text style={styles.notificationText}>You have added "Hide and Seek" to your library.</Text>
             </View>
             <View style={styles.notification}>
                 <View style={styles.notificationHeader}>
-                    <Text style={styles.notificationTitle}>Book Completed</Text>
+                    <Text style={styles.notificationTitle}>A New Book added to favorites</Text>
                     <Text style={styles.notificationTime}>1 day ago</Text>
                 </View>
-                <Text style={styles.notificationText}>You finished reading "Puss in Boots".</Text>
+                <Text style={styles.notificationText}>You have added "Blue" into Favorites.</Text>
             </View>
             {/* Add more notifications here */}
         </View>

@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Button, Image, TouchableOpacity, Scr
 // import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import Material Community Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import profilePic from "../../../assets/profile.jpeg";
-import Books from "../../components/Books/Books";
+import Books, { BookSearch } from "../../components/Books/Books";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import BookDetailsScreen from "../BookDetailsScreen/BookDetailsScreen";
@@ -15,13 +15,18 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { bookItems } from "../../components/BookData";
+import { BooksRecent } from "../../components/Books/Books";
+import { BooksReccomended } from "../../components/Books/Books";
+import { BooksPopular } from "../../components/Books/Books";
+import { BooksAR } from "../../components/Books/Books";
+import BooksHorizontal from "../../components/BooksHorizontal";
 
 
 const SearchScreen = () => {
   const navigation = useNavigation(); // Initialize navigation
   const [searchText, setSearchText] = useState("");
   const [selectedFilter, setSelectedFilter] = useState(""); // Add state to keep track of the selected filter
-
+  const [filteredBooks, setFilteredBooks] = useState([]); // Declare filteredBooks state
   // Handle search text input
   const handleSearchTextChange = (text) => {
     setSearchText(text);
@@ -31,16 +36,18 @@ const SearchScreen = () => {
   // Handle the search button press or Enter key press
   const handleSearch = () => {
     // Implement your search functionality here using searchText
-    // Update your UI or navigate to the search results screen
     // Create a new array to store filtered books
+    console.log("here2");
     const filteredBooks = bookItems.filter((book) =>
-    book.title.toLowerCase().includes(searchText.toLowerCase())
+      book.title.toLowerCase().includes(searchText.toLowerCase())
     );
+    setFilteredBooks(filteredBooks); // Update the filteredBooks state
     console.log("Search Text:", searchText);
     console.log("Filtered Books:", filteredBooks);
 
-    setSearchText("");
+    // setSearchText(""); // Clear the search text after searching
   };
+
 
   // Handle the cancel button press to clear the search text
   const handleCancel = () => {
@@ -53,7 +60,7 @@ const SearchScreen = () => {
   };
 
   return (
-    
+
     <View style={styles.container}>
       <View style={styles.searchcontainer}>
         {/* Header */}
@@ -106,7 +113,10 @@ const SearchScreen = () => {
               icon={faClose}
               size={15}
               color="black" // Customize the icon color
-              onPress={handleCancel}
+              onPress={() => {
+                setSearchText(""); // Update the searchText state to an empty string
+                handleCancel(); // Optionally, you can still call handleCancel if needed
+              }}
             />
           )}
         </View>
@@ -163,10 +173,21 @@ const SearchScreen = () => {
           </TouchableOpacity>
         </ScrollView>
       </View>
+      {searchText.length > 0 ? (
+        <BooksHorizontal title="Search Results" data={filteredBooks} />
+      ) : (
+        selectedFilter === "Recent" ? <BooksRecent /> :
+          selectedFilter === "Popular" ? <BooksPopular /> :
+            selectedFilter === "Adventure" ? <BooksReccomended /> :
+              selectedFilter === "AR" ? <BooksAR /> :
+                selectedFilter === "Sci-fic" ? <Books /> :
+                  <Books />
+      )}
 
-      <Books />
+
+
     </View>
-    
+
   );
 };
 

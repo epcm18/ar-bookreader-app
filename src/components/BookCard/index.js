@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 const BookCard = ({ book, showRemoveButton, onRemovePress }) => {
   return (
     <View style={styles.bookItem}>
-      <Image source={book.coverPage} style={styles.bookImage} />
+      <Image source={{ uri: book.image}} style={styles.bookImage} />
       <View style={styles.bookCard}>
         <Text style={styles.bookTitle}>{book.title}</Text>
         <Text style={styles.bookCategory}>Category: {book.category}</Text>

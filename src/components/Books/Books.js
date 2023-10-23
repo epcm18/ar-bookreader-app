@@ -109,6 +109,17 @@ export const BooksRecent = () => {
   }
 };
 
+// export const BooksRecent = () => {
+//   const recentBooks = bookItems.slice(-4);
+//   if (recentBooks.length > 0) {
+//     console.log('Recent books:', recentBooks);
+//     return recentBooks;
+//   } else {
+//     return <Text>Loading...</Text>;
+//   }
+// };
+
+
 export const BooksReccomended = () => {
   // Get 4 random books from bookItems
   const recommendedBooks = bookItems
@@ -121,14 +132,31 @@ export const BooksReccomended = () => {
   }
 };
 
-export const BooksFavourites = () => {
-  return <BooksHorizontal title="Favourites" data={4} />;
+export const BooksPopular = () => {
+  // Sort the books by ratings in descending order (highest ratings first)
+  const sortedBooks = bookItems.sort((a, b) => b.ratings - a.ratings);
+
+  // Get the top 4 books with the highest ratings
+  const popularBooks = sortedBooks.slice(0, 4);
+
+  if (popularBooks.length > 0) {
+    return <BooksHorizontal title="Most Popular" data={popularBooks} />;
+  } else {
+    return <Text>Loading...</Text>;
+  }
 };
+
 
 export const BooksAR = () => {
   // Filter books with ARcontent = 'yes' from bookItems
-  const arBooks = bookItems.filter((book) => book.ARcontent === 'yes');
+  const arBooks = bookItems.filter((book) => book.ARcontent === 'Yes');
   return <BooksHorizontal title="AR" data={arBooks} />;
+};
+
+export const BookSearch = (title) => {
+  // filter books by the name
+  const searchBooks = bookItems.filter((book) => book.title === title);
+  return <BooksHorizontal title="Search Result" data={searchBooks} />;
 };
 
 const styles = StyleSheet.create({
