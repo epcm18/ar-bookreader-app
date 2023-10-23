@@ -14,13 +14,14 @@ import { Modal } from "react-native-paper";
 // import CountryPicker from 'react-native-country-picker-modal';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPencilSquare } from "@fortawesome/free-solid-svg-icons";
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from "@react-navigation/native";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 
 const EditProfileScreen = () => {
 
-    const navigation = useNavigation();
+  const navigation = useNavigation();
   // Define state variables for user information
   const [username, setUsername] = useState("Klazer123");
   const [email, setEmail] = useState("Klazer123@gmail.com");
@@ -33,6 +34,13 @@ const EditProfileScreen = () => {
   const startDate = getFormatedDate(today, "YYYY-MM-DD");
   const [selectedStartDate, setSelectedStartDate] = useState(startDate);
   const [startedDate, setStartedDate] = useState(startDate);
+
+  const context = useAuthContext();
+
+  const firstName = context.user.firstName;
+  const lastName = context.user.lastName;
+  const profilePic = context.user.profilePicture;
+  const userName = context.user.email.split('@')[0];
 
   const handleChangeStartDate = (propDate) => {
     setStartedDate(propDate);
@@ -59,13 +67,13 @@ const EditProfileScreen = () => {
               onDateChange={handleChangeStartDate}
               onSelectedChange={(date) => setSelectedStartDate(date)}
               options={{
-                backgroundColor: "#0A96E6", 
-                textHeaderColor: "#FFFFFF", 
-                textDefaultColor: "#FFFFFF", 
-                selectedTextColor: "#0066CC", 
-                mainColor: "#FFFFFF", 
-                textSecondaryColor: "#FFFFFF", 
-                borderColor: "#0066CC", 
+                backgroundColor: "#0A96E6",
+                textHeaderColor: "#FFFFFF",
+                textDefaultColor: "#FFFFFF",
+                selectedTextColor: "#0066CC",
+                mainColor: "#FFFFFF",
+                textSecondaryColor: "#FFFFFF",
+                borderColor: "#0066CC",
               }}
             />
             <TouchableOpacity onPress={handleOnChangedStartDate}>
@@ -80,7 +88,7 @@ const EditProfileScreen = () => {
   // Function to handle profile picture upload
   const selectProfileImage = () => {
     console.warn("Profile Image Selected");
-    };
+  };
 
   // Function to save changes
   const saveChanges = () => {
@@ -92,25 +100,42 @@ const EditProfileScreen = () => {
     <View style={styles.container}>
       {/* Profile Picture */}
       <View style={styles.profileImageContainer}>
-  <TouchableOpacity >
-    <View style={styles.profileImageWrapper}>
-      <Image
-        source={profileImage ? { uri: profileImage.uri } : require("../../../assets/profile.jpeg")}
-        style={styles.profileImage}
-      />
-      
-    </View>
-    <FontAwesomeIcon icon={faPencilSquare} color="#FFF" size={25} onPress={selectProfileImage} style={styles.editIcon} />
-  </TouchableOpacity>
-</View>
+        <TouchableOpacity >
+          <View style={styles.profileImageWrapper}>
+            <Image
+              source={profileImage ? { uri: profilePic } : require("../../../assets/profile.jpeg")}
+              style={styles.profileImage}
+            />
 
+          </View>
+          <FontAwesomeIcon icon={faPencilSquare} color="#FFF" size={25} onPress={selectProfileImage} style={styles.editIcon} />
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Username</Text>
+        <Text
+          style={styles.input}
+          >{userName}</Text>
+          
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>First Name</Text>
         <TextInput
           style={styles.input}
-          placeholder="Enter username"
-          value={username}
+          placeholder="Enter firstname"
+          value={firstName}
+          onChangeText={(text) => setUsername(text)}
+        />
+      </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Last Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter lastname"
+          value={lastName}
           onChangeText={(text) => setUsername(text)}
         />
       </View>
@@ -120,7 +145,7 @@ const EditProfileScreen = () => {
         <TextInput
           style={styles.input}
           placeholder="Enter email"
-          value={email}
+          value={context.user.email}
           onChangeText={(text) => setEmail(text)}
         />
       </View>
@@ -156,7 +181,7 @@ const EditProfileScreen = () => {
       </View> */}
       {renderDatePicker()}
       <View style={styles.button}>
-      <Button title="Save Changes" onPress={saveChanges} />
+        <Button title="Save Changes" onPress={saveChanges} />
       </View>
     </View>
   );
@@ -237,13 +262,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#808080",
     borderRadius: 5, // Adjust as needed for your icon
     padding: 0,
-    
+
   },
-    button: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 10,
-    },
+  button: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+  },
 });
 
 export default EditProfileScreen;

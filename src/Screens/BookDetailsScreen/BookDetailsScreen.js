@@ -19,6 +19,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {faArrowLeft, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {faSquareXmark} from '@fortawesome/free-solid-svg-icons';
+import AddtoLibrary, {useAddtoLib} from '../../hooks/useAddToLib';
 
 const BookDetailsScreen = ({route}) => {
   const {book} = route.params;
@@ -28,6 +29,7 @@ const BookDetailsScreen = ({route}) => {
   const [showButtons, setShowButtons] = useState(false);
 
   const openPdf = pdfUrl => {
+    console.log('pdfUrl', pdfUrl);
     navigation.navigate('PDF', {pdfUrl});
   };
 
@@ -37,7 +39,18 @@ const BookDetailsScreen = ({route}) => {
 
   const handleReserveToggle = () => {
     // Check if the book is not already reserved
-    setReserved(!reserved);
+    console.log('bookID', book.id);
+    AddtoLibrary(book.id).then((res) => {
+      console.log('Added to your library:', res);
+      if (res.message === 'Success') {
+        console.log('Added success');
+      }
+      else {
+        console.log('Added failed');
+      }
+    }
+      );
+
   };
 
   const handleCoverImagePress = () => {
@@ -105,6 +118,7 @@ const BookDetailsScreen = ({route}) => {
           <Text style={styles.bookLanguage}>Language: {book.language}</Text>
           <Text style={styles.bookAbstract}>{book.description}</Text>
           <Text style={styles.bookAbstract}>{book.ratings}</Text>
+          <Text style={styles.bookAbstract}>{book.link}</Text>
 
           <Modal
             visible={showButtons}
@@ -124,7 +138,7 @@ const BookDetailsScreen = ({route}) => {
               <View style={styles.modalButtonRow}>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={() => openPdf("https://firebasestorage.googleapis.com/v0/b/arbookreader-50534.appspot.com/o/books%2FOliver%20twist-Charles%20Dickens.pdf?alt=media&token=7ab014d5-fb8f-4a91-9afb-95671dd69bf7")}>
+                  onPress={() => openPdf(book.link)}>
                   <FontAwesomeIcon
                     icon={faBookReader}
                     size={24}

@@ -24,12 +24,8 @@ export const categoryData = [
 export const bookItems = [];
 
 export function addBookstobookItems(books) {
-  // Ensure that books is an array
-  console.log('Adding books to bookItems:', books);
   if (books && books.data && Array.isArray(books.data.books)) {
-    console.log("here");
     books.data.books.forEach((book) => {
-      // You may need to adjust the properties here according to your data structure
       const bookItem = {
         id: book._id,
         title: book.title,
@@ -40,9 +36,21 @@ export function addBookstobookItems(books) {
         description: book.description,
         image: book.image,
         rating: book.ratings,
+        link: book.Link,
       };
-      bookItems.push(bookItem);
-      console.log('Book added to bookItems:', bookItem);
+
+      // Check if a book with the same ID already exists in bookItems
+      const existingBook = bookItems.find((item) => item.id === book._id);
+
+      if (!existingBook) {
+        bookItems.push(bookItem);
+        console.log('Book added to bookItems:', bookItem);
+      } else {
+        // Handle the case when a book with the same ID already exists
+        // You can update the existing item or handle it as needed.
+        console.log('Book with the same ID already exists:', book._id);
+      }
     });
   }
 }
+

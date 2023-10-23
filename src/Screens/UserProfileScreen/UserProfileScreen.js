@@ -1,17 +1,44 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faEllipsisV} from '@fortawesome/free-solid-svg-icons';
-import {useNavigation} from '@react-navigation/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import { useNavigation } from '@react-navigation/native';
 import FavouritesScreen from '../FavouritesScreen/FavouritesScreen';
 import BookCard from '../../components/BookCard';
 import Activity from '../../components/Activity';
+import { useAuthContext } from '../../hooks/useAuthContext';
+
+import AsyncStorage from '@react-native-async-storage/async-storage'; // For storing user data
+
 const UserProfile = () => {
   const navigation = useNavigation();
 
   const [showOptionsMenu, setShowOptionsMenu] = useState(false);
   const [activeTab, setActiveTab] = useState('Activity');
+
+  const [appUsageTime, setAppUsageTime] = useState(0);
+
+  useEffect(() => {
+    // Load the previously stored usage time when the component mounts
+    AsyncStorage.getItem('appUsageTime')
+      .then((time) => {
+        if (time) {
+          setAppUsageTime(parseInt(time));
+        }
+      })
+      .catch((error) => {
+        console.error('Error loading app usage time:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Save the usage time when the component unmounts or when it updates
+    AsyncStorage.setItem('appUsageTime', String(appUsageTime))
+      .catch((error) => {
+        console.error('Error saving app usage time:', error);
+      });
+  }, [appUsageTime]);
 
   const onTabPress = tabName => {
     // Update the active tab when a tab is pressed
@@ -54,11 +81,19 @@ const UserProfile = () => {
     navigation.navigate('PaymentScreen');
   };
 
+
+  const context = useAuthContext(); // Access user data from the context
+  console.log("here2");
+  console.log(context);
+
+  const userName = context.user.email.split('@')[0]; // Extract the username from the
+
+
   return (
     <View style={styles.container}>
       {/* Top Bar */}
       <View style={styles.topBar}>
-        <Text style={styles.topBarText}>Henry Klasen</Text>
+        <Text style={styles.topBarText}>{userName}</Text>
         <TouchableOpacity onPress={toggleOptionsMenu}>
           <FontAwesomeIcon icon={faEllipsisV} size={25} color="black" />
         </TouchableOpacity>
@@ -69,7 +104,7 @@ const UserProfile = () => {
           source={require('../../../assets/profile.jpeg')} // Replace with your profile picture
           style={styles.profilePicture}
         />
-        <Text style={styles.username}>@YourUsername</Text>
+        <Text style={styles.username}>{'@'+userName}</Text>
         <Text style={styles.level}>Level 1 - Novice</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
@@ -93,9 +128,9 @@ const UserProfile = () => {
           <Text style={styles.dashboardLabel}>Books</Text>
         </View>
         <View style={styles.dashboardItem}>
-          <Text style={styles.dashboardNumber}>1.5</Text>
-          <Text style={styles.dashboardLabel}>Hours</Text>
-        </View>
+        <Text style={styles.dashboardNumber}>{appUsageTime/60} min</Text>
+        <Text style={styles.dashboardLabel}>App Usage</Text>
+      </View>
         <View style={styles.dashboardItem}>
           <Text style={styles.dashboardNumber}>11</Text>
           <Text style={styles.dashboardLabel}>Favourites</Text>

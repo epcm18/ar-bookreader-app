@@ -13,12 +13,13 @@ export const useLogin = () => {
     console.warn("made request");
     // 192.168.8.181
     // 10.10.21.130
-    const response = await fetch("http://10.10.21.130:4000/api/user/login", {
+    const response = await fetch("http://192.168.8.181:4000/api/user/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
     const json = await response.json();
+    console.log("response", json);
 
     if (!response.ok) {
       setIsLoading(false);
