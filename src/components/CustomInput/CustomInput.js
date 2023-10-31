@@ -1,15 +1,16 @@
-import {react} from 'react';
-import {View, Text, TextInput, StyleSheet} from 'react-native';
+import { react } from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 
-const CustomInput = ({value, setValue, placeholder, secureTextEntry}) => {
+const CustomInput = ({ value, setValue, placeholder, secureTextEntry }) => {
     return (
         <View style={styles.container}>
-            <TextInput 
-            style={styles.input} 
-            value={value}
-            onChangeText={setValue}
-            placeholder={placeholder}
-            secureTextEntry={secureTextEntry}/>
+            <TextInput
+                style={styles.input}
+                value={value}
+                onChangeText={setValue}
+                placeholder={placeholder}
+                secureTextEntry={secureTextEntry} />
+
         </View>
     );
 };
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     input: {
+
     },
 });
 export default CustomInput;

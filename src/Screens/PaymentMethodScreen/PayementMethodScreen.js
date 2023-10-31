@@ -25,7 +25,7 @@ const PaymentMethodScreen = () => {
         <View style={styles.optionContainer}>
           <Text style={styles.optionText}>MONTHLY</Text>
           <Text style={styles.priceText}>$12.99/month</Text>
-          <TouchableOpacity style={styles.payButton} onPress={onPayNowPress}>
+          <TouchableOpacity style={styles.payButton} onPressIn={onPayNowPress}>
             <Text style={styles.buttonText}>Pay Now</Text>
           </TouchableOpacity>
         </View>
@@ -41,7 +41,7 @@ const PaymentMethodScreen = () => {
       </View>
       <Text style={styles.header}>Try PIXIE for free!</Text>
       <View>
-      <TouchableOpacity style={styles.trialbutton} onPress={onTrialPress}>
+      <TouchableOpacity style={styles.trialbutton} onPressIn={onTrialPress}>
             <Text style={styles.trailbuttontext}>Enjoy your free trial</Text>
           </TouchableOpacity>
       </View>

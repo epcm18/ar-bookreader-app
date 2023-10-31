@@ -12,6 +12,7 @@ import CustomButton from '../../components/CustomButton/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import signInPageHero from '../../../assets/signInPageHero.png';
 import {useLogin} from '../../hooks/useLogin';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,13 +41,13 @@ const SignIn = () => {
   };
 
   const onForgotPasswordPressed = () => {
-    console.warn('Forgot Password');
+    // console.warn('Forgot Password');
 
     navigation.navigate('ForgotPasswordScreen');
   };
 
   const onSignUpPressed = () => {
-    console.warn('Sign Up');
+    // console.warn('Sign Up');
 
     navigation.navigate('SignUp');
   };
@@ -54,7 +55,7 @@ const SignIn = () => {
   const height = useWindowDimensions().height;
 
   return (
-    <View style={styles.root}>
+    <SafeAreaView style={styles.root}>
       {/* Absolute positioned hero image */}
       <Image
         source={signInPageHero}
@@ -66,18 +67,27 @@ const SignIn = () => {
       <View style={styles.contentContainer}>
         <Text style={styles.header}>Welcome Back</Text>
         <Text style={styles.subheader}>Sign In to continue your journey</Text>
-        <CustomInput
-          placeholder="E-mail"
-          value={email}
-          setValue={setEmail}
-          secureTextEntry={false}
-        />
-        <CustomInput
-          placeholder="Password"
-          value={password}
-          setValue={setPassword}
-          secureTextEntry={true}
-        />
+        
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Email *</Text>
+          <CustomInput
+            placeholder="E-mail"
+            value={email}
+            setValue={setEmail}
+            secureTextEntry={false}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Password *</Text>
+          <CustomInput
+            placeholder="Password"
+            value={password}
+            setValue={setPassword}
+            secureTextEntry={true}
+          />
+        </View>
+
         <CustomButton
           text="Forgot Password?"
           onPress={onForgotPasswordPressed}
@@ -94,7 +104,7 @@ const SignIn = () => {
           type="TERTIARY"
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -132,6 +142,15 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 30,
   },
+  inputContainer: {
+    // flex: 1,
+    marginBottom: 20,
+    width: '100%',
+  },
+  inputLabel:{
+    fontFamily: 'Roboto',
+    color: '#fff',
+  },  
 });
 
 export default SignIn;

@@ -42,6 +42,7 @@ const EditProfileScreen = () => {
   const profilePic = context.user.profilePicture;
   const userName = context.user.email.split('@')[0];
 
+
   const handleChangeStartDate = (propDate) => {
     setStartedDate(propDate);
   };
@@ -103,7 +104,7 @@ const EditProfileScreen = () => {
         <TouchableOpacity >
           <View style={styles.profileImageWrapper}>
             <Image
-              source={profileImage ? { uri: profilePic } : require("../../../assets/profile.jpeg")}
+              source={{uri: profilePic}}
               style={styles.profileImage}
             />
 

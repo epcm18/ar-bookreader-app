@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -8,21 +8,23 @@ import {
   ScrollView,
   Modal,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { useNavigation } from '@react-navigation/native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faHeart,
   faBookOpen,
   faBookReader,
   faSpellCheck,
 } from '@fortawesome/free-solid-svg-icons';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {faArrowLeft, faTimes} from '@fortawesome/free-solid-svg-icons';
-import {faSquareXmark} from '@fortawesome/free-solid-svg-icons';
-import AddtoLibrary, {useAddtoLib} from '../../hooks/useAddToLib';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { faArrowLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
+import AddtoLibrary, { useAddtoLib } from '../../hooks/useAddToLib';
 
-const BookDetailsScreen = ({route}) => {
-  const {book} = route.params;
+import { Linking } from 'react-native';
+
+const BookDetailsScreen = ({ route }) => {
+  const { book } = route.params;
   const navigation = useNavigation();
   const [wishlisted, setWishlisted] = useState(false);
   const [reserved, setReserved] = useState(false);
@@ -30,7 +32,7 @@ const BookDetailsScreen = ({route}) => {
 
   const openPdf = pdfUrl => {
     console.log('pdfUrl', pdfUrl);
-    navigation.navigate('PDF', {pdfUrl});
+    navigation.navigate('PDF', { pdfUrl });
   };
 
   const handleWishlistToggle = () => {
@@ -44,13 +46,17 @@ const BookDetailsScreen = ({route}) => {
       console.log('Added to your library:', res);
       if (res.message === 'Success') {
         console.log('Added success');
-      }
-      else {
+        // Pass the book title to NotificationsScreen
+        navigation.navigate('NotificationsScreen', { bookTitle: book.title });
+      } else if (res.message === 'Activate') {
+        console.log('Added Success');
+      } else if (res.message === 'Already added') {
+        console.log('Already added');
+      } else {
         console.log('Added failed');
       }
-    }
-      );
-
+    });
+    setReserved(!reserved);
   };
 
   const handleCoverImagePress = () => {
@@ -68,14 +74,14 @@ const BookDetailsScreen = ({route}) => {
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.goBackButton}
-            onPress={() => navigation.goBack()}>
+            onPressIn={() => navigation.goBack()}>
             <FontAwesomeIcon icon={faArrowLeft} size={20} color="black" />
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.coverImageContainer}
-            onPress={handleCoverImagePress}>
-            <Image source={{ uri: book.image}} style={styles.bookImage} />
+            onPressIn={handleCoverImagePress}>
+            <Image source={{ uri: book.image }} style={styles.bookImage} />
           </TouchableOpacity>
 
           <Text style={styles.bookTitle}>{book.title}</Text>
@@ -83,7 +89,7 @@ const BookDetailsScreen = ({route}) => {
           <View style={styles.buttonContainer}>
             <TouchableOpacity
               style={styles.wishlistButton}
-              onPress={handleWishlistToggle}>
+              onPressIn={handleWishlistToggle}>
               <View style={styles.iconTextContainer}>
                 <FontAwesomeIcon
                   icon={faHeart}
@@ -98,8 +104,8 @@ const BookDetailsScreen = ({route}) => {
 
             <TouchableOpacity
               style={styles.reserveButton}
-              onPress={handleReserveToggle}
-              disabled={book.reserved}>
+              onPressIn={handleReserveToggle}
+            >
               <View style={styles.iconTextContainer}>
                 <FontAwesomeIcon
                   icon={faBookOpen}
@@ -117,8 +123,9 @@ const BookDetailsScreen = ({route}) => {
           <Text style={styles.bookAuthor}>Author: {book.author}</Text>
           <Text style={styles.bookLanguage}>Language: {book.language}</Text>
           <Text style={styles.bookAbstract}>{book.description}</Text>
-          <Text style={styles.bookAbstract}>{book.ratings}</Text>
-          <Text style={styles.bookAbstract}>{book.link}</Text>
+
+          <Text style={styles.bookAbstract}>AR Content available: {book.ARcontent}</Text>
+
 
           <Modal
             visible={showButtons}
@@ -128,7 +135,7 @@ const BookDetailsScreen = ({route}) => {
             <View style={styles.modalView}>
               <TouchableOpacity
                 style={styles.modalCloseButton}
-                onPress={handleModalClose}>
+                onPressIn={handleModalClose}>
                 <FontAwesomeIcon
                   icon={faSquareXmark}
                   size={35}
@@ -138,7 +145,20 @@ const BookDetailsScreen = ({route}) => {
               <View style={styles.modalButtonRow}>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={() => openPdf(book.link)}>
+                  onPressIn={() => {
+                    if (book.ARcontent === 'Yes') {
+                      console.log('ARcontent:', book.title);
+                      // Navigate to a different URL when ARcomtent is 'Yes'
+                      // Replace 'YOUR_AR_URL' with the actual URL you want to navigate to
+                      Linking.openURL("unitydl://mylink?").catch((err) => {
+                        console.error('Failed to open URL:', err);
+                      });
+                    } else {
+                      console.log('NoARcontent:');
+                      // Navigate to the 'BookDetailsScreen' when ARcomtent is not 'Yes'
+                      openPdf(book.link);
+                    }
+                  }}>
                   <FontAwesomeIcon
                     icon={faBookReader}
                     size={24}
@@ -148,7 +168,7 @@ const BookDetailsScreen = ({route}) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.modalButton}
-                  onPress={handleModalClose}>
+                  onPressIn={handleModalClose}>
                   <FontAwesomeIcon
                     icon={faSpellCheck}
                     size={24}

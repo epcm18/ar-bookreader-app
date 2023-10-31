@@ -77,16 +77,60 @@ const SignUp = () => {
       <View style={styles.contentContainer}>
         <Text style={styles.header}>Register Yourself</Text>
         <Text style={styles.subheader}>Begin your journey with us today</Text>
-        <CustomInput placeholder="First Name" value={firstName} setValue={setFirstName} secureTextEntry={false} />
-        <CustomInput placeholder="Last Name" value={lastName} setValue={setLastName} secureTextEntry={false} />
-        {/* <CustomInput placeholder="Username" value={userName} setValue={setUserName} secureTextEntry={false} /> */}
-        <CustomInput placeholder="E-mail" value={email} setValue={setEmail} secureTextEntry={false} />
-        <CustomInput placeholder="Password" value={password} setValue={setPassword} secureTextEntry={true} />
-        <CustomInput placeholder="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} secureTextEntry={true} />
+        
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>First Name *</Text>
+          <CustomInput
+            placeholder="First Name"
+            value={firstName}
+            setValue={setFirstName}
+            secureTextEntry={false}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Last Name *</Text>
+          <CustomInput
+            placeholder="Last Name"
+            value={lastName}
+            setValue={setLastName}
+            secureTextEntry={false}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>E-mail *</Text>
+          <CustomInput
+            placeholder="E-mail"
+            value={email}
+            setValue={setEmail}
+            secureTextEntry={false}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Password *</Text>
+          <CustomInput
+            placeholder="Password"
+            value={password}
+            setValue={setPassword}
+            secureTextEntry={true}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputLabel}>Confirm Password *</Text>
+          <CustomInput
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            setValue={setConfirmPassword}
+            secureTextEntry={true}
+          />
+        </View>
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
             status={checked ? 'checked' : 'unchecked'}
-            onPress={() => setChecked(!checked)}
+            onPressIn={() => setChecked(!checked)}
           />
           <Text style={styles.checkboxLabel}>I accept the Terms & conditions</Text>
         </View>
@@ -139,6 +183,14 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     color: '#fff',
   },
+  inputContainer:{
+    marginBottom: 10,
+    width: '100%',
+  },
+  inputLabel:{
+    color: "#fff",
+    fontFamily: 'Roboto',
+  }
 });
 
 export default SignUp;

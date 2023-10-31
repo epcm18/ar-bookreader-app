@@ -30,7 +30,7 @@ const HelpScreen = () => {
                     </View>
                 </View>
                 <View style={styles.button}>
-                    <CustomButton text= "If you have more questions please visit our website" onPress={onLinkPressed} type='TERTIARY' fgColor='#212122'/>
+                    <CustomButton text= "If you have more questions please visit our website" onPressIn={onLinkPressed} type='TERTIARY' fgColor='#212122'/>
                     
                 </View>
         </ScrollView>

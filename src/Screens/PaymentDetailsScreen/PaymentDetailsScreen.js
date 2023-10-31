@@ -61,7 +61,7 @@ const PaymentDetailsScreen = () => {
           />
 
           {/* Payment Button */}
-          <TouchableOpacity style={styles.paymentButton} onPress={handlePaymentSubmit}>
+          <TouchableOpacity style={styles.paymentButton} onPressIn={handlePaymentSubmit}>
             <Text style={styles.buttonText}>Pay Now</Text>
           </TouchableOpacity>
         </View>

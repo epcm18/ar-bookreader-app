@@ -13,6 +13,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import BookCard from '../../components/BookCard';
 import Books from '../../components/Books/Books';
+import { Linking } from 'react-native';
 
 const FavouritesScreen = () => {
   const navigation = useNavigation();
@@ -36,7 +37,7 @@ const FavouritesScreen = () => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.goBackButton}
-        onPress={() => navigation.goBack()}>
+        onPressIn={() => navigation.goBack()}>
         {/* <FontAwesomeIcon icon={faArrowLeft} size={20} color="black" /> */}
       </TouchableOpacity>
 

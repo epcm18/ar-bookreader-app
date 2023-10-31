@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -19,6 +19,9 @@ const UserProfile = () => {
 
   const [appUsageTime, setAppUsageTime] = useState(0);
 
+  // Use a ref to store the interval timer ID
+  const usageTimerRef = useRef(null);
+
   useEffect(() => {
     // Load the previously stored usage time when the component mounts
     AsyncStorage.getItem('appUsageTime')
@@ -33,13 +36,24 @@ const UserProfile = () => {
   }, []);
 
   useEffect(() => {
-    // Save the usage time when the component unmounts or when it updates
-    AsyncStorage.setItem('appUsageTime', String(appUsageTime))
-      .catch((error) => {
-        console.error('Error saving app usage time:', error);
-      });
-  }, [appUsageTime]);
+    // Save the usage time when the component unmounts
+    return () => {
+      clearInterval(usageTimerRef.current);
+      AsyncStorage.setItem('appUsageTime', String(appUsageTime))
+        .catch((error) => {
+          console.error('Error saving app usage time:', error);
+        });
+    };
+  }, [appUsageTime]); ////////////////////
 
+  useEffect(() => {
+    // Start a timer that increments appUsageTime every minute
+    usageTimerRef.current = setInterval(() => {
+      setAppUsageTime((prevTime) => prevTime + 1); // Increment by 60 seconds
+    }, 1000); // 60,000 milliseconds = 60 seconds = 1 minute
+  }, []);
+
+  ////
   const onTabPress = tabName => {
     // Update the active tab when a tab is pressed
     setActiveTab(tabName);
@@ -88,32 +102,48 @@ const UserProfile = () => {
 
   const userName = context.user.email.split('@')[0]; // Extract the username from the
 
+  const numOFBooks = context.user.addToLibrary.length;
+
+  const profielPic = context.user.profilePicture;
+
+  let userLevel = '';
+
+  if (numOFBooks<0){
+    userLevel = 'Novice';
+  }
+  if (numOFBooks>5 && numOFBooks<10){
+    userLevel = 'Enthusiast';
+  }
+  if(numOFBooks>10){
+    userLevel = 'Book Worm'
+  }
+
 
   return (
     <View style={styles.container}>
       {/* Top Bar */}
       <View style={styles.topBar}>
         <Text style={styles.topBarText}>{userName}</Text>
-        <TouchableOpacity onPress={toggleOptionsMenu}>
+        <TouchableOpacity onPressIn={toggleOptionsMenu}>
           <FontAwesomeIcon icon={faEllipsisV} size={25} color="black" />
         </TouchableOpacity>
       </View>
 
       <View style={styles.profileInfo}>
         <Image
-          source={require('../../../assets/profile.jpeg')} // Replace with your profile picture
+          source={{uri: profielPic}} // Replace with your profile picture
           style={styles.profilePicture}
         />
         <Text style={styles.username}>{'@'+userName}</Text>
-        <Text style={styles.level}>Level 1 - Novice</Text>
+        <Text style={styles.level}>Level 1 - {userLevel}</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
-            onPress={onEditProfile}
+            onPressIn={onEditProfile}
             style={styles.editProfileButton}>
             <Text style={styles.buttonText}>Edit Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={onDictionary}
+            onPressIn={onDictionary}
             style={styles.dictionaryButton}>
             <Text style={styles.buttonText}>Dictionary</Text>
           </TouchableOpacity>
@@ -124,11 +154,11 @@ const UserProfile = () => {
       <View style={styles.dashboard}>
         {/* Display your dashboard items here */}
         <View style={styles.dashboardItem}>
-          <Text style={styles.dashboardNumber}>12</Text>
+          <Text style={styles.dashboardNumber}>{numOFBooks}</Text>
           <Text style={styles.dashboardLabel}>Books</Text>
         </View>
         <View style={styles.dashboardItem}>
-        <Text style={styles.dashboardNumber}>{appUsageTime/60} min</Text>
+        <Text style={styles.dashboardNumber}>{appUsageTime} min</Text>
         <Text style={styles.dashboardLabel}>App Usage</Text>
       </View>
         <View style={styles.dashboardItem}>
@@ -139,7 +169,7 @@ const UserProfile = () => {
       <View style={styles.tabBar}>
         <TouchableOpacity
           style={[styles.tabItem, activeTab === 'Activity' && styles.activeTab]}
-          onPress={() => onTabPress('Activity')}>
+          onPressIn={() => onTabPress('Activity')}>
           <Text style={styles.tabText}>Activity</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -147,7 +177,7 @@ const UserProfile = () => {
             styles.tabItem,
             activeTab === 'Favorites' && styles.activeTab,
           ]}
-          onPress={() => onTabPress('Favorites')}>
+          onPressIn={() => onTabPress('Favorites')}>
           <Text style={styles.tabText}>Favorites</Text>
         </TouchableOpacity>
       </View>
@@ -172,16 +202,16 @@ const UserProfile = () => {
       {/* Options Menu */}
       {showOptionsMenu && (
         <View style={styles.optionsMenu}>
-          <TouchableOpacity onPress={onHelp} style={styles.optionItem}>
+          <TouchableOpacity onPressIn={onHelp} style={styles.optionItem}>
             <Text style={styles.optionText}>Help</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPublish} style={styles.optionItem}>
+          <TouchableOpacity onPressIn={onPublish} style={styles.optionItem}>
             <Text style={styles.optionText}>Publish</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onPayment} style={styles.optionItem}>
+          <TouchableOpacity onPressIn={onPayment} style={styles.optionItem}>
             <Text style={styles.optionText}>Payment Plans</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={onSignOut} style={styles.optionItem}>
+          <TouchableOpacity onPressIn={onSignOut} style={styles.optionItem}>
             <Text style={styles.optionText}>Sign Out</Text>
           </TouchableOpacity>
         </View>

@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
+import { Linking } from 'react-native';
+
 const windowWidth = Dimensions.get('window').width;
 
 const BooksHorizontal = ({ title, data }) => {
@@ -18,7 +20,7 @@ const BooksHorizontal = ({ title, data }) => {
             return (
                 <TouchableOpacity
                     style={styles.bookItemHorizontal}
-                    onPress={() => navigation.navigate('BookDetailsScreen', { book: item })}
+                    onPressIn={() => navigation.navigate('BookDetailsScreen', { book: item })}
                 >
                     <View style={styles.bookImageContainerHorizontal}>
                         <Image source={{ uri:item.image}} style={styles.bookImageHorizontal} />
@@ -32,7 +34,7 @@ const BooksHorizontal = ({ title, data }) => {
             return (
                 <TouchableOpacity
                     style={styles.seeMoreContainer}
-                    onPress={onArrowPress}
+                    onPressIn={onArrowPress}
                 >
                     <Text style={styles.seeMoreText}>See More</Text>
                     <FontAwesomeIcon icon={faArrowRight} size={20} color="black" />
@@ -47,7 +49,7 @@ const BooksHorizontal = ({ title, data }) => {
                 <Text style={styles.titleHorizontal}>
                     {title}
                 </Text>
-                <TouchableOpacity onPress={onArrowPress} style={styles.arrowContainer}>
+                <TouchableOpacity onPressIn={onArrowPress} style={styles.arrowContainer}>
                     {/* <FontAwesomeIcon icon={faArrowRight} size={20} color="black" /> */}
                     <Text style={styles.seeMoreText}>See More</Text>
                 </TouchableOpacity>

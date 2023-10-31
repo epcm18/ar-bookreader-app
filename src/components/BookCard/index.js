@@ -14,7 +14,7 @@ const BookCard = ({ book, showRemoveButton, onRemovePress }) => {
       {showRemoveButton && ( // Conditionally render the remove button
         <TouchableOpacity
           style={styles.removeButton}
-          onPress={onRemovePress}
+          onPressIn={onRemovePress}
         >
           <Text style={styles.removeButtonText}>Remove</Text>
         </TouchableOpacity>

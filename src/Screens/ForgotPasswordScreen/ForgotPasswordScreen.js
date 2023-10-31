@@ -51,9 +51,9 @@ const ForgotPasswordScreen = () => {
         <CustomInput placeholder="Enter your email here" value={email} setValue={setEmail}/>
         
         
-        <CustomButton text="Send" onPress={onSendPressed}/>
+        <CustomButton text="Send" onPressIn={onSendPressed}/>
         
-        <CustomButton text="Back to Sign In" onPress={onSignInPressed} type="TERTIARY"/>
+        <CustomButton text="Back to Sign In" onPressIn={onSignInPressed} type="TERTIARY"/>
         
         
 

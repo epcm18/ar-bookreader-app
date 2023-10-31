@@ -26,7 +26,7 @@ const DictionaryScreen = () => {
         onChangeText={text => setSearchTerm(text)}
         value={searchTerm}
       />
-      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+      <TouchableOpacity style={styles.searchButton} onPressIn={handleSearch}>
         <Text style={styles.searchButtonText}>Search</Text>
       </TouchableOpacity>
 

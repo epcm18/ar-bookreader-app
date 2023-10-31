@@ -62,14 +62,16 @@ export default function Books() {
     return (
       <TouchableOpacity
         style={styles.bookItem}
-        onPress={() => {
+        onPressIn={() => {
           if (item.ARcontent === 'Yes') {
+            console.log('ARcontent:', item.title);
             // Navigate to a different URL when ARcomtent is 'Yes'
             // Replace 'YOUR_AR_URL' with the actual URL you want to navigate to
             Linking.openURL("unitydl://mylink").catch((err) => {
               console.error('Failed to open URL:', err);
             });
           } else {
+            console.log('NoARcontent:');
             // Navigate to the 'BookDetailsScreen' when ARcomtent is not 'Yes'
             navigation.navigate('BookDetailsScreen', { book: item });
           }
@@ -249,6 +251,34 @@ export const BooksPopular = () => {
 
 
 export const BooksAR = () => {
+  const { loading, error, books } = useFetchBooks();
+  const [fetchedBooks, setFetchedBooks] = useState([]);
+  useEffect(() => {
+    if (loading) {
+      // Loading state: You can show a loading indicator or a message
+      console.log('Loading books...'); // Debugging: Log loading state
+      return;
+    }
+
+    if (error) {
+      // Error state: You can show an error message
+      console.error('Error loading books:', error); // Log the error for debugging
+      console.log('Failed to load books. Please try again later.'); // Display a user-friendly message
+      return;
+    }
+
+    if (books.length === 0) {
+      // No books found: You can show a message or handle this case
+      console.log('No books found.'); // Debugging: Log no books found
+      return;
+    }
+
+    // Books loaded successfully
+    setFetchedBooks(books);
+    // console.log('fetchedBooks:', fetchedBooks);
+    console.log('Books loaded successfully:', books.length, 'books');
+    addBookstobookItems(books);
+  }, [loading, error, books]);
   // Filter books with ARcontent = 'yes' from bookItems
   const arBooks = bookItems.filter((book) => book.ARcontent === 'Yes');
   return <BooksHorizontal title="AR" data={arBooks} />;

@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         alignItems: 'center', // Make the button container full width
-        marginBottom: 20, // Add some margin at the bottom
+        //marginBottom: 20, // Add some margin at the bottom
         justifyContent: 'flex-end', // Align buttons to the bottom
     },
     logocontainer: {

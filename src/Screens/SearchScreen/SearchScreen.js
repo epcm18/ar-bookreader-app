@@ -66,7 +66,7 @@ const SearchScreen = () => {
         {/* Header */}
         <View style={styles.header}>
           {/* Left side */}
-          <TouchableOpacity onPress={() => navigation.navigate("UserProfileScreen")}>
+          <TouchableOpacity onPressIn={() => navigation.navigate("UserProfileScreen")}>
             <View style={styles.profileContainer}>
               <Image source={profilePic} style={styles.profilePic} />
               <Text style={styles.profileText}>Hi, Welcome Back!</Text>
@@ -75,7 +75,7 @@ const SearchScreen = () => {
 
           {/* Right side */}
           <View style={styles.icons}>
-            <TouchableOpacity onPress={() => navigation.navigate("NotificationsScreen")}>
+            <TouchableOpacity onPressIn={() => navigation.navigate("NotificationsScreen")}>
               <FontAwesomeIcon
                 icon={faBell}
                 size={24}
@@ -83,7 +83,7 @@ const SearchScreen = () => {
               />
             </TouchableOpacity>
             <View style={{ marginRight: 20 }} />
-            <TouchableOpacity onPress={() => navigation.navigate("FavouritesScreen")}>
+            <TouchableOpacity onPressIn={() => navigation.navigate("FavouritesScreen")}>
               <FontAwesomeIcon
                 icon={faHeart}
                 size={24}
@@ -113,7 +113,7 @@ const SearchScreen = () => {
               icon={faClose}
               size={15}
               color="black" // Customize the icon color
-              onPress={() => {
+              onPressIn={() => {
                 setSearchText(""); // Update the searchText state to an empty string
                 handleCancel(); // Optionally, you can still call handleCancel if needed
               }}
@@ -131,7 +131,7 @@ const SearchScreen = () => {
               styles.filterOption,
               selectedFilter === "Recent" && { backgroundColor: "#0A96E6" }, // Change background color based on the selected filter
             ]}
-            onPress={() => handleFilterOptionPress("Recent")}
+            onPressIn={() => handleFilterOptionPress("Recent")}
           >
             <Text style={styles.filterOptionText}>Recent</Text>
           </TouchableOpacity>
@@ -140,7 +140,7 @@ const SearchScreen = () => {
               styles.filterOption,
               selectedFilter === "Popular" && { backgroundColor: "#0A96E6" },
             ]}
-            onPress={() => handleFilterOptionPress("Popular")}
+            onPressIn={() => handleFilterOptionPress("Popular")}
           >
             <Text style={styles.filterOptionText}>Popular</Text>
           </TouchableOpacity>
@@ -149,7 +149,7 @@ const SearchScreen = () => {
               styles.filterOption,
               selectedFilter === "Adventure" && { backgroundColor: "#0A96E6" },
             ]}
-            onPress={() => handleFilterOptionPress("Adventure")}
+            onPressIn={() => handleFilterOptionPress("Adventure")}
           >
             <Text style={styles.filterOptionText}>Adventure</Text>
           </TouchableOpacity>
@@ -158,7 +158,7 @@ const SearchScreen = () => {
               styles.filterOption,
               selectedFilter === "AR" && { backgroundColor: "#0A96E6" },
             ]}
-            onPress={() => handleFilterOptionPress("AR")}
+            onPressIn={() => handleFilterOptionPress("AR")}
           >
             <Text style={styles.filterOptionText}>AR</Text>
           </TouchableOpacity>
@@ -167,7 +167,7 @@ const SearchScreen = () => {
               styles.filterOption,
               selectedFilter === "Sci-fic" && { backgroundColor: "#0A96E6" },
             ]}
-            onPress={() => handleFilterOptionPress("Sci-fic")}
+            onPressIn={() => handleFilterOptionPress("Sci-fic")}
           >
             <Text style={styles.filterOptionText}>Sci-fic</Text>
           </TouchableOpacity>

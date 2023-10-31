@@ -113,7 +113,7 @@ const Home = () => {
         options={{
           title: 'Library',
           tabBarIcon: ({size, color}) => (
-            <FontAwesomeIcon icon={faBook} color={color} size={size} />
+            <FontAwesomeIcon icon={faBook} color={color} size={size}/>
           ),
         }}
       />
@@ -125,42 +125,31 @@ const Navigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="LandingScreen" component={LandingScreen} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="LandingScreen" component={LandingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{ headerShown: false }} />
         <Stack.Screen name="SignUpConfirm" component={SignUpConfirm} />
-        <Stack.Screen
-          name="ForgotPasswordScreen"
-          component={ForgotPasswordScreen}
-        />
+        <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen} />
         <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} />
-        <Stack.Screen
-          name="PaymentMethodScreen"
-          component={PaymentMethodScreen}
-        />
-        <Stack.Screen
-          name="PaymentDetailsScreen"
-          component={PaymentDetailsScreen}
-        />
-        <Stack.Screen name="HomeScreen" component={Home} headerShown={true} />
-        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
-        <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
-        <Stack.Screen name="SearchScreen" component={Books} />
-        <Stack.Screen name="BookDetailsScreen" component={BookDetailsScreen} />
-        <Stack.Screen
-          name="NotificationsScreen"
-          component={NotificationsScreen}
-        />
-        <Stack.Screen name="LibraryScreen" component={LibraryScreen} />
-        <Stack.Screen name="PublishScreen" component={PublishScreen} />
-        <Stack.Screen name="HelpScreen" component={HelpScreen} />
+        <Stack.Screen name="PaymentMethodScreen" component={PaymentMethodScreen} />
+        <Stack.Screen name="PaymentDetailsScreen" component={PaymentDetailsScreen} />
+        <Stack.Screen name="HomeScreen" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SearchScreen" component={Books} options={{ headerShown: false }} />
+        <Stack.Screen name="BookDetailsScreen" component={BookDetailsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="NotificationsScreen" component={NotificationsScreen} />
+        <Stack.Screen name="LibraryScreen" component={LibraryScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="PublishScreen" component={PublishScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="HelpScreen" component={HelpScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         <Stack.Screen name="DictionaryScreen" component={DictionaryScreen} />
-        <Stack.Screen name="FavouritesScreen" component={FavoritesScreen} />
+        <Stack.Screen name="FavouritesScreen" component={FavoritesScreen} options={{ headerShown: false }} />
         <Stack.Screen name="PDF" component={PdfScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
+
 
 export default Navigation;

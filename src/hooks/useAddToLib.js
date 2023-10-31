@@ -4,13 +4,16 @@ const AddtoLibrary = async (id) => {
         console.log('book id', id);
         const queryParams = new URLSearchParams();
         queryParams.append('book_id', id);
-        const response = await fetch(`http://192.168.8.181:4000/api/user/addToLibrary?${queryParams.toString()}`, {
+        console.log('queryParams', queryParams);
+        const response = await fetch(`http://10.10.21.130:4000/api/user/addToLibrary?${queryParams.toString()}`, {
             method: "GET",
         });
+        console.log('response', response);
         if (!response.ok) {
             throw new Error(`response was not ok. Status: ${response.status}`);
         }
         const res = await response.json();
+        console.log('res', res);
         return res;
     }
     catch (err) {

@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, Pressable} from 'react-native';
 
 const CustomButton = ({onPress, text, type='PRIMARY', bgColor, fgColor}) => {
     return (
-        <Pressable onPress={onPress} 
+        <Pressable onPressIn={onPress} 
         style={[
             styles.container, 
             styles['container_'+type],

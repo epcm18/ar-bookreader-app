@@ -51,9 +51,9 @@ const NewPasswordScreen = () => {
         <CustomInput placeholder="Enter your code here" value={code} setValue={setCode}/>
         
         <CustomInput placeholder="Enter your new password" value={newPassword} setValue={setNewPassword}/>
-        <CustomButton text="Reset" onPress={onResetPressed}/>
+        <CustomButton text="Reset" onPressIn={onResetPressed}/>
         
-        <CustomButton text="Back to Sign In" onPress={onSignInPressed} type="TERTIARY"/>
+        <CustomButton text="Back to Sign In" onPressIn={onSignInPressed} type="TERTIARY"/>
         
         
 

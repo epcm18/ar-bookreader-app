@@ -24,7 +24,7 @@ const PublishScreen = () => {
                 </Text>
             </View>
             <View style={styles.button}>
-            <CustomButton text= "Visit our website" onPress={onLinkPressed} type='TERTIARY' fgColor='#212122'/>
+            <CustomButton text= "Visit our website" onPressIn={onLinkPressed} type='TERTIARY' fgColor='#212122'/>
             </View>
             
         </ScrollView>

@@ -18,7 +18,7 @@ const Activity = ({book}) => {
         <Text style={styles.bookLanguage}>Language: {book.language}</Text>
 
         {/* "Continue Your Journey" button */}
-        <TouchableOpacity style={styles.continueButton} onPress={onContinue}>
+        <TouchableOpacity style={styles.continueButton} onPressIn={onContinue}>
           <Text style={styles.continueButtonText}>Continue Where You Stop</Text>
         </TouchableOpacity>
       </View>
