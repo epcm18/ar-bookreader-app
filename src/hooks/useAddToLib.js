@@ -5,7 +5,7 @@ const AddtoLibrary = async (id) => {
         const queryParams = new URLSearchParams();
         queryParams.append('book_id', id);
         console.log('queryParams', queryParams);
-        const response = await fetch(`http://10.10.21.130:4000/api/user/addToLibrary?${queryParams.toString()}`, {
+        const response = await fetch(`https://arbookreaderserver.onrender.com/api/user/addToLibrary?${queryParams.toString()}`, {
             method: "GET",
         });
         console.log('response', response);

@@ -16,15 +16,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
   const {login, error, isLoading} = useLogin();
 
   const navigation = useNavigation();
 
   const onSignInPressed = async () => {
     // e.preventDefault();
+    
     try{
+      setErrorMessage(''); // Reset the error message when attempting to sign in
       console.log("error", error, isLoading);
-      const err = await login(email, password);
+      const err = await login(email, password); // call the login function
       console.log("error2", err)
       if (err == null){
         console.warn("Login successful");
@@ -32,6 +36,7 @@ const SignIn = () => {
       }
       else{
         console.warn("Login unsuccessful");
+        setErrorMessage(err); // Set the error message
       }
     }catch(error){
       console.error(error);
@@ -87,6 +92,8 @@ const SignIn = () => {
             secureTextEntry={true}
           />
         </View>
+
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
 
         <CustomButton
           text="Forgot Password?"
@@ -150,7 +157,13 @@ const styles = StyleSheet.create({
   inputLabel:{
     fontFamily: 'Roboto',
     color: '#fff',
-  },  
+  },
+  errorMessage: {
+    color: 'red', // Set the color to red
+    fontSize: 14,
+    
+  },
+    
 });
 
 export default SignIn;

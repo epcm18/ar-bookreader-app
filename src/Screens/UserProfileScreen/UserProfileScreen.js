@@ -94,7 +94,7 @@ const UserProfile = () => {
     console.warn('Payment');
     navigation.navigate('PaymentScreen');
   };
-
+  ////
 
   const context = useAuthContext(); // Access user data from the context
   console.log("here2");
@@ -107,15 +107,19 @@ const UserProfile = () => {
   const profielPic = context.user.profilePicture;
 
   let userLevel = '';
+  let userLevelNum = 0;
 
-  if (numOFBooks<0){
+  if (numOFBooks<5){
     userLevel = 'Novice';
+    userLevelNum = 1;
   }
   if (numOFBooks>5 && numOFBooks<10){
     userLevel = 'Enthusiast';
+    userLevelNum = 2;
   }
   if(numOFBooks>10){
     userLevel = 'Book Worm'
+    userLevelNum = 3;
   }
 
 
@@ -135,7 +139,7 @@ const UserProfile = () => {
           style={styles.profilePicture}
         />
         <Text style={styles.username}>{'@'+userName}</Text>
-        <Text style={styles.level}>Level 1 - {userLevel}</Text>
+        <Text style={styles.level}>Level {userLevelNum} - {userLevel}</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
             onPressIn={onEditProfile}

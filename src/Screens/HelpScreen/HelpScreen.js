@@ -14,7 +14,7 @@ const HelpScreen = () => {
 
     return (
         <ScrollView style={styles.container}>
-            <Text>HelpScreen</Text>
+            {/* <Text>HelpScreen</Text> */}
             <Image source={helpHero} style={styles.hero} resizeMode="cover" />
                 <View>
                     <Text style={styles.header}>Help Center</Text>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Button, Image, TouchableOpacity, ScrollView } from "react-native";
 // import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import Material Community Icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import profilePic from "../../../assets/profile.jpeg";
+// import profilePic from "../../../assets/profile.jpeg";
 import Books, { BookSearch } from "../../components/Books/Books";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -20,6 +20,7 @@ import { BooksReccomended } from "../../components/Books/Books";
 import { BooksPopular } from "../../components/Books/Books";
 import { BooksAR } from "../../components/Books/Books";
 import BooksHorizontal from "../../components/BooksHorizontal";
+import { useAuthContext } from '../../hooks/useAuthContext';
 
 
 const SearchScreen = () => {
@@ -33,20 +34,42 @@ const SearchScreen = () => {
     // You can implement search logic here
   };
 
-  // Handle the search button press or Enter key press
-  const handleSearch = () => {
-    // Implement your search functionality here using searchText
-    // Create a new array to store filtered books
-    console.log("here2");
-    const filteredBooks = bookItems.filter((book) =>
-      book.title.toLowerCase().includes(searchText.toLowerCase())
-    );
-    setFilteredBooks(filteredBooks); // Update the filteredBooks state
-    console.log("Search Text:", searchText);
-    console.log("Filtered Books:", filteredBooks);
+  const context = useAuthContext(); // Access user data from the context
 
-    // setSearchText(""); // Clear the search text after searching
-  };
+  const profielPic = context.user?.profilePicture; // Get the profile pic from the user data
+
+  // // Handle the search button press or Enter key press
+  // const handleSearch = () => {
+  //   // Implement your search functionality here using searchText
+  //   // Create a new array to store filtered books
+  //   console.log("here2");
+  //   const filteredBooks = bookItems.filter((book) =>
+  //     book.title.toLowerCase().includes(searchText.toLowerCase())
+  //   );
+  //   setFilteredBooks(filteredBooks); // Update the filteredBooks state
+  //   console.log("Search Text:", searchText);
+  //   console.log("Filtered Books:", filteredBooks);
+
+  //   // setSearchText(""); // Clear the search text after searching
+  // };
+
+  // Handle the search button press or Enter key press
+const handleSearch = () => {
+  // Implement your search functionality here using searchText
+  // Create a new array to store filtered books
+  console.log("here2");
+  const filteredBooks = bookItems.filter((book) =>
+    book.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+  setFilteredBooks(filteredBooks); // Update the filteredBooks state
+  console.log("Search Text:", searchText);
+  console.log("Filtered Books:", filteredBooks);
+
+  // Clear the selected filter
+  setSelectedFilter("");
+
+  // setSearchText(""); // Clear the search text after searching
+};
 
 
   // Handle the cancel button press to clear the search text
@@ -54,9 +77,17 @@ const SearchScreen = () => {
     setSearchText("");
   };
 
+  
   // Handle filter option press
   const handleFilterOptionPress = (filter) => {
-    setSelectedFilter(filter);
+    if (selectedFilter === filter) {
+      // If the selected filter is the same as the one that was pressed,
+      // clear the selection (set it to an empty string)
+      setSelectedFilter("");
+    } else {
+      // If the selected filter is different, set the new filter as selected
+      setSelectedFilter(filter);
+    }
   };
 
   return (
@@ -68,7 +99,7 @@ const SearchScreen = () => {
           {/* Left side */}
           <TouchableOpacity onPressIn={() => navigation.navigate("UserProfileScreen")}>
             <View style={styles.profileContainer}>
-              <Image source={profilePic} style={styles.profilePic} />
+              <Image source={{uri:profielPic}} style={styles.profilePic} />
               <Text style={styles.profileText}>Hi, Welcome Back!</Text>
             </View>
           </TouchableOpacity>

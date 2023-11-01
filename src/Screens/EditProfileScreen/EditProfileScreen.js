@@ -17,14 +17,18 @@ import { faPencilSquare } from "@fortawesome/free-solid-svg-icons";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from "@react-navigation/native";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import useEditProfile  from "../../hooks/useEditProfile";
 
 
 const EditProfileScreen = () => {
 
   const navigation = useNavigation();
+  const context = useAuthContext();
+  const { editProfile, error, isLoading } = useEditProfile();
   // Define state variables for user information
-  const [username, setUsername] = useState("Klazer123");
-  const [email, setEmail] = useState("Klazer123@gmail.com");
+  const [firstName, setFirstName] = useState(context.user.firstName);
+  const [lastName, setLastName] = useState(context.user.lastName);
+  const [email, setEmail] = useState(context.user.email);
   const [profileImage, setProfileImage] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null); // State for selected country
 
@@ -35,10 +39,12 @@ const EditProfileScreen = () => {
   const [selectedStartDate, setSelectedStartDate] = useState(startDate);
   const [startedDate, setStartedDate] = useState(startDate);
 
-  const context = useAuthContext();
+  const [refreshKey, setRefreshKey] = useState(0);
+  const [updateMsg, setUpdateMsg] = useState(''); // error message 
+  
 
-  const firstName = context.user.firstName;
-  const lastName = context.user.lastName;
+  // const firstName = context.user.firstName;
+  // const lastName = context.user.lastName;
   const profilePic = context.user.profilePicture;
   const userName = context.user.email.split('@')[0];
 
@@ -93,12 +99,22 @@ const EditProfileScreen = () => {
 
   // Function to save changes
   const saveChanges = () => {
-    console.warn("Saved Changes");
-    navigation.navigate('HomeScreen');
+     // Create a FormData object to send to the API
+     const formData = new FormData();
+     formData.append("firstName", firstName);
+     formData.append("lastName", lastName);
+     formData.append("email", email);
+     formData.append("startDate", selectedStartDate);
+     // Add other fields as needed
+ 
+     // Call the editProfile function to update the profile
+     editProfile(formData);
+     setRefreshKey(refreshKey+1);
+     setUpdateMsg('Profile Updated Successfully');
   };
 
   return (
-    <View style={styles.container}>
+    <View key={refreshKey} style={styles.container}>
       {/* Profile Picture */}
       <View style={styles.profileImageContainer}>
         <TouchableOpacity >
@@ -127,7 +143,7 @@ const EditProfileScreen = () => {
           style={styles.input}
           placeholder="Enter firstname"
           value={firstName}
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(text) => setFirstName(text)}
         />
       </View>
 
@@ -137,7 +153,7 @@ const EditProfileScreen = () => {
           style={styles.input}
           placeholder="Enter lastname"
           value={lastName}
-          onChangeText={(text) => setUsername(text)}
+          onChangeText={(text) => setLastName(text)}
         />
       </View>
 
@@ -181,6 +197,7 @@ const EditProfileScreen = () => {
         </View>
       </View> */}
       {renderDatePicker()}
+      <Text style={styles.errorMessage}>{updateMsg}</Text>
       <View style={styles.button}>
         <Button title="Save Changes" onPress={saveChanges} />
       </View>
@@ -269,6 +286,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     marginBottom: 10,
+  },
+  errorMessage: {
+    color: 'black', // Set the color
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
 

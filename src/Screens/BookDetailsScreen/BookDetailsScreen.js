@@ -20,6 +20,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { faArrowLeft, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faSquareXmark } from '@fortawesome/free-solid-svg-icons';
 import AddtoLibrary, { useAddtoLib } from '../../hooks/useAddToLib';
+import { addBooksToPersonalbookItems, personalBookItems } from "../../components/BookData";
 
 import { Linking } from 'react-native';
 
@@ -39,6 +40,26 @@ const BookDetailsScreen = ({ route }) => {
     setWishlisted(!wishlisted);
   };
 
+  // const handleReserveToggle = () => {
+  //   // Check if the book is not already reserved
+  //   console.log('bookID', book.id);
+  //   AddtoLibrary(book.id).then((res) => {
+  //     console.log('Added to your library:', res);
+  //     if (res.message === 'Success') {
+  //       console.log('Added success');
+  //       // Pass the book title to NotificationsScreen
+  //       navigation.navigate('NotificationsScreen', { bookTitle: book.title });
+  //     } else if (res.message === 'Activate') {
+  //       console.log('Added Success');
+  //     } else if (res.message === 'Already added') {
+  //       console.log('Already added');
+  //     } else {
+  //       console.log('Added failed');
+  //     }
+  //   });
+  //   setReserved(!reserved);
+  // };
+
   const handleReserveToggle = () => {
     // Check if the book is not already reserved
     console.log('bookID', book.id);
@@ -46,6 +67,10 @@ const BookDetailsScreen = ({ route }) => {
       console.log('Added to your library:', res);
       if (res.message === 'Success') {
         console.log('Added success');
+        // Update the personalBookItems array
+        personalBookItems.push(book);
+        // navigation.navigate('LibraryScreen', { personalBookItems: updatedPersonalLibrary });
+  
         // Pass the book title to NotificationsScreen
         navigation.navigate('NotificationsScreen', { bookTitle: book.title });
       } else if (res.message === 'Activate') {
@@ -58,6 +83,7 @@ const BookDetailsScreen = ({ route }) => {
     });
     setReserved(!reserved);
   };
+  
 
   const handleCoverImagePress = () => {
     setShowButtons(true);

@@ -299,7 +299,7 @@ const HomeScreen = () => {
       renderIcon={({ route, focused, color }) => (
         <FontAwesomeIcon
           icon={route.icon}
-          size={20} // Adjust the size as needed
+          size={20} // Adjust the size 
           color={focused ? "#0A96E6" : "#999"} /// Customize the color based on focus
         />
       )}

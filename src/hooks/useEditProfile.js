@@ -10,7 +10,7 @@ const useEditProfile = () => {
     setError(null)
     setIsLoading(true)
     console.log("sent user details",FormData)
-    const response = await fetch('http://10.10.21.130:4000/api/user/editprofile', {
+    const response = await fetch('https://arbookreaderserver.onrender.com/api/user/editprofile', {
       method: 'POST',
       body: FormData
     })

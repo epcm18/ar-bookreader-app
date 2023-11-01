@@ -19,11 +19,13 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [checked, setChecked] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [errorEmptyMessage, setErrorEmptyMessage] = useState(''); // error message if signup unsuccessfull
+  const [errorValidMessage, setErrorValidMessage] = useState(''); // error message if any of the fields are empty
 
-  const {signup, error, isLoading} = useSignup();
+  const {signup, error, isLoading} = useSignup(); //  call the signup function
 
   const onSignInPressed = () => {
-    console.warn('Sign in'); 
+    console.warn('Sign in'); // go to sign in page
     navigation.navigate('SignIn');
     
     
@@ -31,11 +33,13 @@ const SignUp = () => {
 
   const onSignUpPressed = async () => {
     if (!isFormValid) {
+      setErrorValidMessage('Please fill in all fields and accept the Terms & Conditions.'); // set the error message for empty fields
       console.warn('Please fill in all fields and accept the Terms & Conditions.');
       return;
     }
   
     try {
+      setErrorEmptyMessage(''); // Reset the error message when attempting to sign up
       // setIsLoading(true);;
       console.log("error", error, isLoading)
   
@@ -47,6 +51,7 @@ const SignUp = () => {
         navigation.navigate('SignUpConfirm');
       }
       else{
+        setErrorEmptyMessage('Please try again'); // Set the error message
         console.warn('Sign Up unsuccessful');
       }
     } catch (error) {
@@ -59,6 +64,7 @@ const SignUp = () => {
   const checkFormValidity = () => {
     if (firstName && lastName && email && password && checked) {
       setIsFormValid(true);
+      setErrorValidMessage('');
     } else {
       setIsFormValid(false);
     }
@@ -127,6 +133,11 @@ const SignUp = () => {
             secureTextEntry={true}
           />
         </View>
+
+        <Text style={styles.errorMessage}>{errorEmptyMessage}</Text>
+
+        <Text style={styles.errorMessage}>{errorValidMessage}</Text>
+
         <View style={styles.checkboxContainer}>
           <Checkbox.Android
             status={checked ? 'checked' : 'unchecked'}
@@ -190,7 +201,12 @@ const styles = StyleSheet.create({
   inputLabel:{
     color: "#fff",
     fontFamily: 'Roboto',
-  }
+  },
+  errorMessage: {
+    color: 'red', // Set the color to red
+    fontSize: 14,
+    textAlign: 'center',
+  },
 });
 
 export default SignUp;

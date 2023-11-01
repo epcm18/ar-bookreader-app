@@ -14,13 +14,13 @@ export const useSignup = () => {
     console.warn('made request');
 
     try {
-      const response = await fetch('http://10.10.21.130:4000/api/user/signup', {
+      const response = await fetch('https://arbookreaderserver.onrender.com/api/user/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, email, password, confirmPassword }),
+        body: JSON.stringify({ firstName, lastName, email, password, confirmPassword }), // Send the user data to the server
       });
 
-      const json = await response.json();
+      const json = await response.json(); // Get the JSON response
 
       if (!response.ok) {
         setIsLoading(false);
@@ -29,7 +29,7 @@ export const useSignup = () => {
 
       } else {
         // Save the user to local storage
-        await AsyncStorage.setItem('user', JSON.stringify(json));
+        await AsyncStorage.setItem('user', JSON.stringify(json)); // save the user to local storage
 
         // Update the auth context
         dispatch({ type: 'LOGIN', payload: json });
